@@ -40,73 +40,39 @@ std::ostream& operator << (std::ostream& os, const Test& other)
     return os;
 }
 
-//TEMPLATE_TEST_CASE( "vectors can be sized and resized", "[vector][template]", int, Test, (std::tuple<int,float>) )
-//{
-//  omega::vector<TestType> v;
-//  v.resize(5);
-//
-//  REQUIRE( v.size() == 5 );
-//  REQUIRE( v.capacity() >= 5 );
-//
-//  SECTION( "resizing bigger changes size and capacity" ) {
-//      v.resize( 10 );
-//
-//      REQUIRE( v.size() == 10 );
-//      REQUIRE( v.capacity() >= 10 );
-//  }
-//  SECTION( "resizing smaller changes size but not capacity" ) {
-//      v.resize( 0 );
-//
-//      REQUIRE( v.size() == 0 );
-//      REQUIRE( v.capacity() >= 5 );
-//
-//      SECTION( "We can use the 'swap trick' to reset the capacity" ) {
-//          omega::vector<TestType> empty;
-//          empty.swap( v );
-//
-//          REQUIRE( v.capacity() == 0 );
-//      }
-//  }
-//  SECTION( "reserving smaller does not change size or capacity" ) {
-//      v.reserve( 0 );
-//
-//      REQUIRE( v.size() == 5 );
-//      REQUIRE( v.capacity() >= 5 );
-//  }
-//}
+TEMPLATE_TEST_CASE( "vectors can be sized and resized", "[vector][template]", int, std::string, Test, (std::tuple<int,float>) )
+{
+  omega::vector<TestType> v;
+  v.resize(5);
 
-TEST_CASE( "vectors can be sized and resized", "[vector]" ) {
+  REQUIRE( v.size() == 5 );
+  REQUIRE( v.capacity() >= 5 );
 
-    std::vector<int> v;
-    v.resize(5);
+  SECTION( "resizing bigger changes size and capacity" ) {
+      v.resize( 10 );
 
-    REQUIRE( v.size() == 5 );
-    REQUIRE( v.capacity() >= 5 );
+      REQUIRE( v.size() == 10 );
+      REQUIRE( v.capacity() >= 10 );
+  }
+  SECTION( "resizing smaller changes size but not capacity" ) {
+      v.resize( 0 );
 
-    SECTION( "resizing bigger changes size and capacity" ) {
-        v.resize( 10 );
+      REQUIRE( v.size() == 0 );
+      REQUIRE( v.capacity() >= 5 );
 
-        REQUIRE( v.size() == 10 );
-        REQUIRE( v.capacity() >= 10 );
-    }
-    SECTION( "resizing smaller changes size but not capacity" ) {
-        v.resize( 0 );
+      SECTION( "We can use the 'swap trick' to reset the capacity" ) {
+          omega::vector<TestType> empty;
+          empty.swap( v );
 
-        REQUIRE( v.size() == 0 );
-        REQUIRE( v.capacity() >= 5 );
-    }
-    SECTION( "reserving bigger changes capacity but not size" ) {
-        v.reserve( 10 );
+          REQUIRE( v.capacity() == 0 );
+      }
+  }
+  SECTION( "reserving smaller does not change size or capacity" ) {
+      v.reserve( 0 );
 
-        REQUIRE( v.size() == 5 );
-        REQUIRE( v.capacity() >= 10 );
-    }
-    SECTION( "reserving smaller does not change size or capacity" ) {
-        v.reserve( 0 );
-
-        REQUIRE( v.size() == 5 );
-        REQUIRE( v.capacity() >= 5 );
-    }
+      REQUIRE( v.size() == 5 );
+      REQUIRE( v.capacity() >= 5 );
+  }
 }
 
 TEST_CASE( "initialization", "[vector]" ) {
