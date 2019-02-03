@@ -236,7 +236,7 @@ namespace omega
             {
                 for (size_type i = 0; i < m_size - count; i++)
                 {
-                    alloc_traits::destroy(m_allocator, &m_data[m_size - count + i]);
+                    alloc_traits::destroy(m_allocator, &m_data[count + i]);
                 } 
                 m_size = count;
                 return;
@@ -251,7 +251,7 @@ namespace omega
             {
                 for (size_type i = 0; i < m_size - count; i++)
                 {
-                    alloc_traits::destroy(m_allocator, &m_data[m_size - count + i]);
+                    alloc_traits::destroy(m_allocator, &m_data[count + i]);
                 } 
                 m_size = count;
                 return;
