@@ -67,14 +67,19 @@ namespace omega
             temp.alloc(list.size());
             for (auto& item : list)
             {
-                temp.push(std::move(item));
+                temp.push(item);
             }
             swap_data(*this, temp);
         }
 
         void assign(std::initializer_list<T> list)
         {
-            vector_hlpr<T, allocator_type> temp(list, m_allocator);
+            vector_hlpr<T, allocator_type> temp(m_allocator);
+            temp.alloc(list.size());
+            for (auto& item : list)
+            {
+                temp.push(item);
+            }
             swap_data(*this, temp);
         }
 
@@ -167,19 +172,19 @@ namespace omega
         template<typename It>
         iterator insert(It pos, const_reference value)
         {
-            return insert_internal(pos, 1, value);
+            return insert_values_internal(pos, 1, value);
         }
 
         template<typename It>
         iterator insert(It pos, size_type count, const_reference value)
         {
-            return !count ? iterator{ m_data + (pos - cbegin()) } : insert_internal(pos, count, value);
+            return !count ? iterator{ m_data + (pos - cbegin()) } : insert_values_internal(pos, count, value);
         }
 
         template<typename It>
         iterator insert(It pos, T&& value)
         {
-            return insert_internal(pos, 1, std::move(value));
+            return insert_values_internal(pos, 1, std::move(value));
         }
 
         template<typename It, typename InputIt>
@@ -197,7 +202,7 @@ namespace omega
         template<typename It, typename... Args>
         iterator emplace(It pos, Args&&... args)
         {
-            return insert_internal(pos, 1, std::forward<Args>(args)...);
+            return insert_values_internal(pos, 1, std::forward<Args>(args)...);
         }
 
         void pop_back() noexcept
@@ -205,7 +210,7 @@ namespace omega
             if (!m_size)
                 return;
 
-            alloc_traits::destroy(m_allocator, m_data[m_size - 1]);
+            alloc_traits::destroy(m_allocator, &m_data[m_size - 1]);
             --m_size;
         }
 
@@ -537,7 +542,7 @@ namespace omega
         }
 
         template <typename It, typename... Args>
-        iterator insert_internal(It pos, size_t count, Args&&... args)
+        iterator insert_values_internal(It pos, size_t count, Args&&... args)
         {
             const auto new_size = m_size + count;
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
