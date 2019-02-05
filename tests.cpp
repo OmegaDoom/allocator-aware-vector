@@ -153,7 +153,8 @@ SCENARIO( "Can add items", "[vector]" ) {
             vec.insert(vec.cend(), Test("qwerty"));
             vec.insert(vec.cbegin(), 2, Test("second"));
             const Test item{"first"};
-            vec.insert(vec.cbegin(), 3, item);
+            vec.insert(vec.cbegin(), 2, item);
+            vec.insert(vec.cbegin(), item);
             THEN( "first item is first, fourth is second, sixth is qwerty" ) {
                 REQUIRE( (vec[0] == "first" && vec[3] == "second" && vec[5] == "qwerty") );
             }
