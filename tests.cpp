@@ -73,6 +73,12 @@ TEMPLATE_TEST_CASE( "vectors can be sized and resized", "[vector][template]", in
       REQUIRE( v.size() == 5 );
       REQUIRE( v.capacity() >= 5 );
   }
+  SECTION( "reserving bigger changes capacity but not size" ) {
+      v.reserve( 50 );
+
+      REQUIRE( v.size() == 5 );
+      REQUIRE( v.capacity() >= 50 );
+  }
 }
 
 TEST_CASE( "initialization", "[vector]" ) {
