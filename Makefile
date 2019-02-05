@@ -1,17 +1,18 @@
 # -*- Makefile -*-
 
 CXX := g++
-CXXFLAGS := -std=c++11
+CXXFLAGS := -std=c++11 --coverage
+LIBS := --coverage
 
 all: main tests
 
 main: main.o
-	$(CXX) $^ -o $@
+	$(CXX) $^ $(LIBS) -o $@
 
 tests: tests.o
-	$(CXX) $^ -o $@
+	$(CXX) $^ $(LIBS) -o $@
 
 .PHONY: clean
 
 clean:
-	rm *.o main
+	rm *.o main *.gcov *.gcno *.gcda
