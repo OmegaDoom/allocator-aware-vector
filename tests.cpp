@@ -175,6 +175,12 @@ SCENARIO( "Can add items", "[vector]" ) {
                 REQUIRE( (v[0] == 6 && v[1] == 7 && v[2] == 8 && v[3] == 9 && v[4] == 10) );
             }
         }
+        WHEN( "adding items by resizing" ) {
+            v.resize(3, 5);
+            THEN( "items are 10, 5, 5" ) {
+                REQUIRE( (v[0] == 10 && v[1] == 5 && v[2] == 5) );
+            }
+        }
     }
 }
 
