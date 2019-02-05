@@ -98,6 +98,21 @@ TEST_CASE( "initialization", "[vector]" ) {
     }
 }
 
+TEST_CASE( "construction", "[vector]" ) {
+    omega::vector<int> init_v { 0, 1, 2 };
+    SECTION( "copy construction" ) {
+        omega::vector<int> v(init_v); 
+        REQUIRE( v.size() == 3 );
+        REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
+    }
+    omega::vector<int> v { 0, 1, 2 };
+    SECTION( "move constructon" ) {
+        omega::vector<int> other(std::move(init_v)); 
+        REQUIRE( v.size() == 3 );
+        REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
+    }
+}
+
 SCENARIO( "Can add items", "[vector]" ) {
 
     GIVEN( "A vector with one item" ) {
