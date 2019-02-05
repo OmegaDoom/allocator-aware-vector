@@ -142,11 +142,31 @@ SCENARIO( "Can add items", "[vector]" ) {
                 REQUIRE( v.back() == 12 );
             }
         }
+        WHEN( "insert complex items" ) {
+            omega::vector<Test> vec;
+            vec.insert(vec.cend(), Test("qwerty"));
+            vec.insert(vec.cbegin(), 2, Test("second"));
+            const Test item{"first"};
+            vec.insert(vec.cbegin(), 3, item);
+            THEN( "first item is first, fourth is second, sixth is qwerty" ) {
+                REQUIRE( (vec[0] == "first" && vec[3] == "second" && vec[5] == "qwerty") );
+            }
+        }
         WHEN( "insert initializer list" ) {
             v.insert(v.cbegin(), { 8, 9 });
 
             THEN( "items are 8, 9, 10" ) {
                 REQUIRE( (v[0] == 8 && v[1] == 9 && v[2] == 10) );
+            }
+        }
+        WHEN( "insert iterators" ) {
+            std::vector<int> insert_v { 6, 7 };
+            v.insert(v.cbegin(), insert_v.cbegin(), insert_v.cend());
+            std::vector<int> insert_v2 { 8, 9 };
+            v.insert(v.cbegin() + 2, insert_v2.cbegin(), insert_v2.cend());
+
+            THEN( "items are 6, 7, 8, 9, 10" ) {
+                REQUIRE( (v[0] == 6 && v[1] == 7 && v[2] == 8 && v[3] == 9 && v[4] == 10) );
             }
         }
     }
