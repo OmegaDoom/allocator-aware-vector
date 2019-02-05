@@ -263,7 +263,13 @@ namespace omega
         void assign(size_type count, const_reference value)
         {
             vector_hlpr<T, allocator_type> temp(m_allocator);
-            temp.resize(count, value);
+            temp.alloc(count);
+
+            for (size_type i = 0; i < count; i++)
+            {
+                temp.push(value);
+            }
+
             swap_data(*this, temp);
         }
 
