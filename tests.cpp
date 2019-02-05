@@ -288,6 +288,20 @@ SCENARIO( "delete items", "[vector]" ) {
                 REQUIRE( v.back() == 12 );
             }
         }
+        WHEN( "delete items from end" ) {
+            v.erase(v.cbegin() + 1, v.cend());
+
+            THEN( "only one item that equals 10") {
+                REQUIRE( (v.size() == 1 && v[0] == 10) );
+            }
+        }
+        WHEN( "delete items by resizing to smaller size with value" ) {
+            v.resize(2, 5);
+
+            THEN( "two items left") {
+                REQUIRE( (v.size() == 2 && v[0] == 10 && v[1] == 11) );
+            }
+        }
     }
 }
 
