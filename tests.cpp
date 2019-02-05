@@ -237,6 +237,13 @@ SCENARIO( "assign items", "[vector]" ) {
                 REQUIRE( (v.size() == 3 && v[0] == "a" && v[1] == "b" && v[2] == "c") );
             }
         }
+        WHEN( "assign values" ) {
+            omega::vector<std::string> v { "a", "b", "c" };
+            v.assign(2, "1");
+            THEN( "two items are equal to '1'" ) {
+                REQUIRE( (v.size() == 2 && v[0] == "1" && v[1] == "1") );
+            }
+        }
     }
 }
 
