@@ -396,7 +396,7 @@ namespace omega
 
         bool empty() const noexcept
         {
-            return m_size != 0;
+            return m_size == 0;
         }
 
         size_type capacity() const noexcept
