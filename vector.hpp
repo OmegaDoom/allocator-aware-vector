@@ -153,14 +153,14 @@ namespace omega
             return *this;
         }
 
-        void push_back(const T& item)
+        void push_back(const_reference value)
         {
-            push_back_internal(item);
+            push_back_internal(value);
         }
 
-        void push_back(T&& item)
+        void push_back(value_type&& value)
         {
-            push_back_internal(std::move(item));
+            push_back_internal(std::move(value));
         }
 
         template<typename... Args>
@@ -242,7 +242,7 @@ namespace omega
                 return;
             }
                 
-            resize_to_bigger_size(count, T{});
+            resize_to_bigger_size(count, value_type{});
         }
 
         void resize(size_type count, const_reference value)
