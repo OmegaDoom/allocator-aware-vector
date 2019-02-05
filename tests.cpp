@@ -134,6 +134,17 @@ SCENARIO( "Can add items", "[vector]" ) {
                 REQUIRE( v.back() == 11 );
             }
         }
+        WHEN( "add another item by const reference" ) {
+            omega::vector<Test> v;
+            const Test test1("qwerty");
+            const Test test2("zxc");
+            v.push_back(test1);
+            v.push_back(test2);
+
+            THEN( "two items: qwerty, zxc" ) {
+                REQUIRE( (v.size() == 2 && v[0] == "qwerty" && v[1] == "zxc") );
+            }
+        }
         WHEN( "insert an item at the begining" ) {
             v.insert(v.begin(), 9);
 
