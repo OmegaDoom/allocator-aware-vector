@@ -83,6 +83,7 @@ TEMPLATE_TEST_CASE( "vectors can be sized and resized", "[vector][template]", in
       v.clear();
 
       REQUIRE( v.size() == 0 );
+      REQUIRE( v.empty() );
       REQUIRE( v.capacity() >= 0 );
   }
 }
