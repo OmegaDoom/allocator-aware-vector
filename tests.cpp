@@ -265,6 +265,31 @@ SCENARIO( "assign items", "[vector]" ) {
     }
 }
 
+SCENARIO( "assign operators", "[vector]" ) {
+
+    GIVEN( "A vector with some items" ) {
+        omega::vector<std::string> v { "1", "2", "3" };
+
+        WHEN( "copy assign operator" ) {
+            omega::vector<std::string> v_copy { "a", "b", "c", "d" };
+            v = v_copy;
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v.size() == 4 && v[0] == "a" && v[1] == "b" && v[2] == "c" && v[3] == "d") );
+            }
+        }
+
+        WHEN( "move assign operator" ) {
+            omega::vector<std::string> v_copy { "a", "b", "c", "d" };
+            v = std::move(v_copy);
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v.size() == 4 && v[0] == "a" && v[1] == "b" && v[2] == "c" && v[3] == "d") );
+            }
+        }
+    }
+}
+
 SCENARIO( "Shrink to fit", "[vector]" ) {
 
     GIVEN( "A vector with some items" ) {
