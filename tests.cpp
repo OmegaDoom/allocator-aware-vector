@@ -478,6 +478,50 @@ TEST_CASE( "iterators", "[vector]" ) {
         REQUIRE( (*(v.end() - 1) == 5 && *(v.end() - 2) == 4) );
         REQUIRE( (*it1 == 3 && *it2 == 3) );
     }
+    SECTION( "const begin, end" ) {
+        const auto& const_v = v;
+        auto it1 = const_v.begin();
+        auto it2 = const_v.end() - 1;
+        ++it1;
+        it1++;
+        --it2;
+        it2--;
+
+        REQUIRE( (*const_v.begin() == 1 && *(const_v.begin() + 1) == 2) );
+        REQUIRE( (*(const_v.end() - 1) == 5 && *(const_v.end() - 2) == 4) );
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
+    SECTION( "rbegin, rend" ) {
+        auto it1 = v.rbegin();
+        auto it2 = v.rend() - 1;
+        ++it1;
+        it1++;
+        --it2;
+        it2--;
+
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
+    SECTION( "const rbegin, rend" ) {
+        const auto& const_v = v;
+        auto it1 = const_v.rbegin();
+        auto it2 = const_v.rend() - 1;
+        ++it1;
+        it1++;
+        --it2;
+        it2--;
+
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
+    SECTION( "rcbegin, rcend" ) {
+        auto it1 = v.rcbegin();
+        auto it2 = v.rcend() - 1;
+        ++it1;
+        it1++;
+        --it2;
+        it2--;
+
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
     SECTION( "cbegin, cend" ) {
         auto it1 = v.cbegin();
         auto it2 = v.cend() - 1;
@@ -495,5 +539,11 @@ TEST_CASE( "iterators", "[vector]" ) {
         *(v.end() - 2) = 11;
 
         REQUIRE( (*(v.cbegin() + 1) == 10 && *(v.cend() - 2) == 11) );
+    }
+    SECTION( "assign via reverse iterator" ) {
+        *(v.rbegin() + 1) = 10;
+        *(v.rend() - 2) = 11;
+
+        REQUIRE( (*(v.rcbegin() + 1) == 10 && *(v.rcend() - 2) == 11) );
     }
 }
