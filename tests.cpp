@@ -433,13 +433,13 @@ TEST_CASE( "at method", "[vector]" ) {
     v.push_back(11);
     v.push_back(12);
     SECTION( "index out of range" ) {
-        REQUIRE( v[2] == 12 );
+        REQUIRE( v.at(2) == 12 );
         REQUIRE_THROWS_AS(v.at(10) == 0, std::out_of_range);
         REQUIRE_THROWS_AS(v.at(-10) == 0, std::out_of_range);
     }
     SECTION( "index out of range for const object" ) {
         const omega::vector<int>& const_v = v;
-        REQUIRE( const_v[2] == 12 );
+        REQUIRE( const_v.at(2) == 12 );
         REQUIRE_THROWS_AS(const_v.at(10) == 0, std::out_of_range);
         REQUIRE_THROWS_AS(const_v.at(-10) == 0, std::out_of_range);
     }
