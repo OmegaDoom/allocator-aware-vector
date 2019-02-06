@@ -4,6 +4,7 @@
 #include <tuple>
 #include <stdexcept>
 #include "vector.hpp"
+#include "allocator.hpp"
 
 class Test
 {
@@ -278,6 +279,36 @@ SCENARIO( "assign operators", "[vector]" ) {
                 REQUIRE( (v.size() == 4 && v[0] == "a" && v[1] == "b" && v[2] == "c" && v[3] == "d") );
             }
         }
+        WHEN( "copy assign operator with not equal allocator" ) {
+            omega::vector<std::string, not_equal_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
+                , not_equal_allocator<std::string>{});
+            omega::vector<std::string, not_equal_allocator<std::string>> v2(not_equal_allocator<std::string>{});
+            v2 = v_copy;
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v2.size() == 4 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c" && v2[3] == "d") );
+            }
+        }
+        WHEN( "copy assign operator with propagate allocator" ) {
+            omega::vector<std::string, propagate_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
+                , propagate_allocator<std::string>{});
+            omega::vector<std::string, propagate_allocator<std::string>> v2(propagate_allocator<std::string>{});
+            v2 = v_copy;
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v2.size() == 4 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c" && v2[3] == "d") );
+            }
+        }
+        WHEN( "copy assign operator with propagate not equal allocator" ) {
+            omega::vector<std::string, propagate_not_equal_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
+                , propagate_not_equal_allocator<std::string>{});
+            omega::vector<std::string, propagate_not_equal_allocator<std::string>> v2(propagate_not_equal_allocator<std::string>{});
+            v2 = v_copy;
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v2.size() == 4 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c" && v2[3] == "d") );
+            }
+        }
 
         WHEN( "move assign operator" ) {
             omega::vector<std::string> v_copy { "a", "b", "c", "d" };
@@ -285,6 +316,36 @@ SCENARIO( "assign operators", "[vector]" ) {
 
             THEN( "items are equal to a, b, c, d" ) {
                 REQUIRE( (v.size() == 4 && v[0] == "a" && v[1] == "b" && v[2] == "c" && v[3] == "d") );
+            }
+        }
+        WHEN( "move assign operator with not equal allocator" ) {
+            omega::vector<std::string, not_equal_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
+                , not_equal_allocator<std::string>{});
+            omega::vector<std::string, not_equal_allocator<std::string>> v2(not_equal_allocator<std::string>{});
+            v2 = std::move(v_copy);
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v2.size() == 4 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c" && v2[3] == "d") );
+            }
+        }
+        WHEN( "move assign operator with propagate allocator" ) {
+            omega::vector<std::string, propagate_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
+                , propagate_allocator<std::string>{});
+            omega::vector<std::string, propagate_allocator<std::string>> v2(propagate_allocator<std::string>{});
+            v2 = std::move(v_copy);
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v2.size() == 4 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c" && v2[3] == "d") );
+            }
+        }
+        WHEN( "move assign operator with propagate not equal allocator" ) {
+            omega::vector<std::string, propagate_not_equal_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
+                , propagate_not_equal_allocator<std::string>{});
+            omega::vector<std::string, propagate_not_equal_allocator<std::string>> v2(propagate_not_equal_allocator<std::string>{});
+            v2 = std::move(v_copy);
+
+            THEN( "items are equal to a, b, c, d" ) {
+                REQUIRE( (v2.size() == 4 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c" && v2[3] == "d") );
             }
         }
     }
