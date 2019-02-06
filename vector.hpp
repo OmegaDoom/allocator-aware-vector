@@ -366,15 +366,25 @@ namespace omega
             return m_size ? iterator(m_data + m_size) : iterator(nullptr);
         } 
 
+        const_iterator begin() const noexcept
+        {
+            return m_size ? iterator(m_data) : iterator(nullptr);
+        }
+
+        const_iterator end() const noexcept
+        {
+            return m_size ? iterator(m_data + m_size) : iterator(nullptr);
+        }
+
         const_iterator cbegin() const noexcept
         {
             return m_size ? const_iterator(m_data) : const_iterator(nullptr);
-        } 
+        }
 
         const_iterator cend() const noexcept
         {
             return m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
-        } 
+        }
 
         reverse_iterator rbegin() noexcept
         {
@@ -383,6 +393,18 @@ namespace omega
         } 
 
         reverse_iterator rend() noexcept
+        {
+            auto iter = m_size ? iterator(m_data) : iterator(nullptr);
+            return std::reverse_iterator<iterator>(iter);
+        }
+
+        const_reverse_iterator rbegin() const noexcept
+        {
+            auto iter = m_size ? iterator(m_data + m_size) : iterator(nullptr);
+            return std::reverse_iterator<iterator>(iter);
+        }
+
+        const_reverse_iterator rend() const noexcept
         {
             auto iter = m_size ? iterator(m_data) : iterator(nullptr);
             return std::reverse_iterator<iterator>(iter); 

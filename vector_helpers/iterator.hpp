@@ -33,8 +33,8 @@ namespace omega
         using iterator_category = std::random_access_iterator_tag;
         using value_type = T;
         using difference_type = std::ptrdiff_t;
-        using pointer = T*;
-        using reference = T&;
+        using pointer = ValuePointerType;
+        using reference = ValueReferenceType;
 
         base_iterator(ValuePointerType pointer)
             : m_pointer(pointer)
@@ -124,11 +124,6 @@ namespace omega
             return *this;
         }
 
-        base_iterator operator - (difference_type n) noexcept
-        {
-            return base_iterator(m_pointer - n);
-        }
-
         difference_type operator - (const base_iterator& rhs) const noexcept
         {
             return m_pointer - rhs.m_pointer;
@@ -151,6 +146,12 @@ namespace omega
         friend base_iterator<T, false> operator + <T> (difference_type, const base_iterator<T, false>&) noexcept;
         friend base_iterator<T, true> operator + <T> (const base_iterator<T>&, difference_type) noexcept;
         friend base_iterator<T, true> operator + <T> (difference_type, const base_iterator<T>&) noexcept;
+
+        friend base_iterator operator - (const base_iterator& iter, std::ptrdiff_t n) noexcept
+        {
+            return base_iterator(iter.m_pointer - n);
+        }
+
         ValuePointerType m_pointer;
     };
 
@@ -178,6 +179,5 @@ namespace omega
         return base_iterator<value_type>(iter.m_pointer + n);
     }
 }
-
 
 #endif //VECTOR_ITERATOR_HPP
