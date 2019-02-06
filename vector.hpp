@@ -458,8 +458,8 @@ namespace omega
 
         void swap(vector<T, allocator_type>& rhs) noexcept
         {
-            constexpr bool swap_storage = alloc_traits::propagate_on_container_swap::value
-                                      && !std::is_empty<allocator_type>::value;
+            const bool swap_storage = alloc_traits::propagate_on_container_swap::value
+                && m_allocator != rhs.m_allocator;
 
             if (swap_storage)
                 std::swap(m_allocator, rhs.m_allocator);
