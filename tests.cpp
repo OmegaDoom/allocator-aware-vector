@@ -463,3 +463,37 @@ TEST_CASE( "swap method", "[vector]" ) {
         REQUIRE( (v2.size() == 3 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c") );
     }
 }
+
+TEST_CASE( "iterators", "[vector]" ) {
+    omega::vector<int> v { 1, 2, 3, 4, 5 };
+    SECTION( "begin, end" ) {
+        auto it1 = v.begin();
+        auto it2 = v.end() - 1;
+        ++it1;
+        it1++;
+        --it2;
+        it2--;
+
+        REQUIRE( (*v.begin() == 1 && *(v.begin() + 1) == 2) );
+        REQUIRE( (*(v.end() - 1) == 5 && *(v.end() - 2) == 4) );
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
+    SECTION( "cbegin, cend" ) {
+        auto it1 = v.cbegin();
+        auto it2 = v.cend() - 1;
+        ++it1;
+        it1++;
+        --it2;
+        it2--;
+
+        REQUIRE( (*v.cbegin() == 1 && *(v.cbegin() + 1) == 2) );
+        REQUIRE( (*(v.cend() - 1) == 5 && *(v.cend() - 2) == 4) );
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
+    SECTION( "assign via iterator" ) {
+        *(v.begin() + 1) = 10;
+        *(v.end() - 2) = 11;
+
+        REQUIRE( (*(v.cbegin() + 1) == 10 && *(v.cend() - 2) == 11) );
+    }
+}
