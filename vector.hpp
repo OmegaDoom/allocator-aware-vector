@@ -124,6 +124,17 @@ namespace omega
             rhs.m_data = nullptr;
         }
 
+        vector(vector<T, allocator_type>&& rhs, const allocator_type& alloc)
+            : m_allocator(alloc)
+            , m_size(rhs.m_size)
+            , m_capacity(rhs.m_capacity)
+            , m_data(rhs.m_data)
+        {
+            rhs.m_size = 0;
+            rhs.m_capacity = 0;
+            rhs.m_data = nullptr;
+        }
+
         vector<T, allocator_type>& operator = (const vector<T, allocator_type>& rhs)
         {
             const bool copy_storage = alloc_traits::propagate_on_container_copy_assignment::value
