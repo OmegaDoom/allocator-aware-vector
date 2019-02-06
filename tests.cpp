@@ -119,9 +119,19 @@ TEST_CASE( "construction", "[vector]" ) {
         REQUIRE( v.size() == 3 );
         REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
     }
+    SECTION( "copy construction with allocator" ) {
+        omega::vector<int> v(init_v, std::allocator<int>{});
+        REQUIRE( v.size() == 3 );
+        REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
+    }
     omega::vector<int> v { 0, 1, 2 };
     SECTION( "move constructon" ) {
         omega::vector<int> other(std::move(init_v)); 
+        REQUIRE( v.size() == 3 );
+        REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
+    }
+    SECTION( "move construction with allocator" ) {
+        omega::vector<int> v(std::move(init_v), std::allocator<int>{});
         REQUIRE( v.size() == 3 );
         REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
     }
