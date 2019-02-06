@@ -1,5 +1,5 @@
-#ifndef VECTOR_HPP
-#define VECTOR_HPP
+#ifndef OMEGA_VECTOR_HPP
+#define OMEGA_VECTOR_HPP
 
 #include "vector_helpers/iterator.hpp" 
 #include "vector_helpers/vector_helper.hpp"
@@ -676,4 +676,4 @@ namespace omega
     };
 }
 
-#endif //VECTOR_HPP
+#endif //OMEGA_VECTOR_HPP

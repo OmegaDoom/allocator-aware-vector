@@ -1,5 +1,5 @@
-#ifndef VECTOR_ITERATOR_HPP
-#define VECTOR_ITERATOR_HPP
+#ifndef OMEGA_VECTOR_ITERATOR_HPP
+#define OMEGA_VECTOR_ITERATOR_HPP
 
 #include <utility>
 #include <iterator>
@@ -180,4 +180,4 @@ namespace omega
     }
 }
 
-#endif //VECTOR_ITERATOR_HPP
+#endif //OMEGA_VECTOR_ITERATOR_HPP
