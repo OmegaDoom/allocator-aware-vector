@@ -444,3 +444,22 @@ TEST_CASE( "at method", "[vector]" ) {
         REQUIRE_THROWS_AS(const_v.at(-10) == 0, std::out_of_range);
     }
 }
+
+TEST_CASE( "swap method", "[vector]" ) {
+    SECTION( "swap with std::allocator" ) {
+        omega::vector<std::string> v1 { "a", "b", "c" };
+        omega::vector<std::string> v2 { "1", "2", "3", "4" };
+        v1.swap(v2);
+        REQUIRE( (v1.size() == 4 && v1[0] == "1" && v1[1] == "2" && v1[2] == "3" && v1[3] == "4") );
+        REQUIRE( (v2.size() == 3 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c") );
+    }
+    SECTION( "swap with propagate_not_equal_allocator" ) {
+        omega::vector<std::string, propagate_not_equal_allocator<std::string>> v1 ( { "a", "b", "c" }
+            , propagate_not_equal_allocator<std::string>{} );
+        omega::vector<std::string, propagate_not_equal_allocator<std::string>> v2 ( { "1", "2", "3", "4" }
+            , propagate_not_equal_allocator<std::string>{} );
+        v1.swap(v2);
+        REQUIRE( (v1.size() == 4 && v1[0] == "1" && v1[1] == "2" && v1[2] == "3" && v1[3] == "4") );
+        REQUIRE( (v2.size() == 3 && v2[0] == "a" && v2[1] == "b" && v2[2] == "c") );
+    }
+}
