@@ -1,5 +1,5 @@
-#ifndef VECTOR_HLPR_HPP
-#define VECTOR_HLPR_HPP
+#ifndef VECTOR_HELPER_HPP
+#define VECTOR_HELPER_HPP
 
 #include "iterator.hpp"
 #include <utility>
@@ -11,7 +11,7 @@
 namespace omega
 {
     template<typename T, typename Allocator>
-    class vector_hlpr
+    class vector_helper
     {
         using alloc_traits = std::allocator_traits<Allocator>;
     public:
@@ -24,7 +24,7 @@ namespace omega
         using pointer = typename alloc_traits::pointer;
         using const_pointer = typename alloc_traits::const_pointer;
 
-        vector_hlpr(allocator_type& alloc)
+        vector_helper(allocator_type& alloc)
             : m_data(nullptr)
             , m_size(0)
             , m_capacity(0)
@@ -32,7 +32,7 @@ namespace omega
         {
         }
 
-        ~vector_hlpr()
+        ~vector_helper()
         {
             clear_capacity();
         }
@@ -72,4 +72,4 @@ namespace omega
     };
 }
 
-#endif //VECTOR_HLPR_HPP
+#endif //VECTOR_HELPER_HPP
