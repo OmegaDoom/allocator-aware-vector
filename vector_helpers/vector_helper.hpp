@@ -57,7 +57,7 @@ namespace omega
         }
 
         template <typename... Args>
-        pointer push(Args&&... args)
+        pointer construct(Args&&... args)
         {
             alloc_traits::construct(m_allocator, &m_data[m_size], std::forward<Args>(args)...); 
             ++m_size;

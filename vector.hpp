@@ -43,7 +43,7 @@ namespace omega
             temp.alloc(last - first);
             for (auto it = first; it != last; ++it)
             {
-                temp.push(*it);
+                temp.construct(*it);
             }
             swap_data(*this, temp);
         }
@@ -55,7 +55,7 @@ namespace omega
             temp.alloc(last - first);
             for (auto it = first; it != last; ++it)
             {
-                temp.push(*it);
+                temp.construct(*it);
             }
             swap_data(*this, temp);
         }
@@ -67,7 +67,7 @@ namespace omega
             temp.alloc(list.size());
             for (auto& item : list)
             {
-                temp.push(item);
+                temp.construct(item);
             }
             swap_data(*this, temp);
         }
@@ -78,7 +78,7 @@ namespace omega
             temp.alloc(list.size());
             for (auto& item : list)
             {
-                temp.push(item);
+                temp.construct(item);
             }
             swap_data(*this, temp);
         }
@@ -93,7 +93,7 @@ namespace omega
             temp.alloc(rhs.m_size);
             for (size_type i = 0; i < rhs.m_size; i++)
             {
-                temp.push(rhs.m_data[i]);
+                temp.construct(rhs.m_data[i]);
             }
             swap_data(*this, temp);
         }
@@ -108,7 +108,7 @@ namespace omega
             temp.alloc(rhs.m_size);
             for (size_type i = 0; i < rhs.m_size; i++)
             {
-                temp.push(rhs.m_data[i]);
+                temp.construct(rhs.m_data[i]);
             }
             swap_data(*this, temp);
         }
@@ -235,7 +235,7 @@ namespace omega
 
             for (size_type i = 0; i < m_size; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
             swap_data(*this, temp);
@@ -278,7 +278,7 @@ namespace omega
 
             for (size_type i = 0; i < count; i++)
             {
-                temp.push(value);
+                temp.construct(value);
             }
 
             swap_data(*this, temp);
@@ -294,7 +294,7 @@ namespace omega
 
             for (size_type i = 0; i < m_size; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
             
             swap_data(*this, temp);
@@ -467,7 +467,7 @@ namespace omega
             {
                 if ((&m_data[i] < first.getPointer()) || (&m_data[i] >= last.getPointer())) 
                 {
-                    auto iter = temp.push(std::move_if_noexcept<T>(m_data[i]));
+                    auto iter = temp.construct(std::move_if_noexcept<T>(m_data[i]));
                     if (!result.getPointer() && (&m_data[i] == last.getPointer()))
                         result = iter; 
                 }
@@ -535,7 +535,7 @@ namespace omega
             temp.alloc(rhs.m_size);
             for (size_type i = 0; i < rhs.m_size; i++)
             {
-                temp.push(rhs.m_data[i]);
+                temp.construct(rhs.m_data[i]);
             }
             swap_data(*this, temp);
         }
@@ -570,9 +570,9 @@ namespace omega
                 temp.alloc(m_capacity * 2 + 1);
                 for (size_type i = 0; i < m_size; i++)
                 {
-                    temp.push(std::move_if_noexcept<T>(m_data[i]));
+                    temp.construct(std::move_if_noexcept<T>(m_data[i]));
                 }
-                temp.push(std::forward<Args>(args)...);
+                temp.construct(std::forward<Args>(args)...);
                 swap_data(*this, temp);
                 return;
             }
@@ -591,19 +591,19 @@ namespace omega
 
             for (size_type i = 0; i < copy_index; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
-            auto result = iterator{ temp.push(std::forward<Args>(args)...) };
+            auto result = iterator{ temp.construct(std::forward<Args>(args)...) };
 
             for (size_type i = 0; i < count - 1; i++)
             {
-                temp.push(std::forward<Args>(args)...);
+                temp.construct(std::forward<Args>(args)...);
             }
 
             for (size_type i = copy_index; i < m_size; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
             swap_data(*this, temp);
@@ -621,21 +621,21 @@ namespace omega
 
             for (size_type i = 0; i < copy_index; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
-            auto result = iterator{ temp.push(*first) }; 
+            auto result = iterator{ temp.construct(*first) };
             auto iter = first + 1;
 
             for (size_type i = 0; i < last - first - 1; i++)
             {
-                temp.push(*iter);
+                temp.construct(*iter);
                 ++iter;
             }
 
             for (size_type i = copy_index; i < m_size; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
             swap_data(*this, temp);
@@ -650,12 +650,12 @@ namespace omega
 
             for (size_type i = 0; i < m_size; i++)
             {
-                temp.push(std::move_if_noexcept<T>(m_data[i]));
+                temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
             for (size_type i = 0; i < count - m_size; i++)
             {
-                temp.push(value); 
+                temp.construct(value);
             }
 
             swap_data(*this, temp);
