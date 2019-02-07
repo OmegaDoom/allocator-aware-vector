@@ -483,8 +483,9 @@ namespace omega
             const bool swap_storage = alloc_traits::propagate_on_container_swap::value
                 && m_allocator != rhs.m_allocator;
 
+            using std::swap;
             if (swap_storage)
-                std::swap(m_allocator, rhs.m_allocator);
+                swap(m_allocator, rhs.m_allocator);
             std::swap(m_data, rhs.m_data);
             std::swap(m_size, rhs.m_size);
             std::swap(m_capacity, rhs.m_capacity);
