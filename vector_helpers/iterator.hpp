@@ -114,7 +114,7 @@ namespace omega
             return m_pointer - rhs.m_pointer;
         }
 
-        void swap(base_iterator& rhs) const noexcept
+        void swap(base_iterator& rhs) noexcept
         {
             std::swap(m_pointer, rhs.m_pointer);
         }
