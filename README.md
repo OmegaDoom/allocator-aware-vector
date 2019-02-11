@@ -27,3 +27,5 @@ for(auto value : vec)
 1. There are no constructors with element `count` as first parameter because they are not consistent with initializer list constructor.  Use `resize` if you need to fill-in some amount of elements.
 2. No non-member functions
 3. No methods `max_size` and `get_allocator`
+
+[![Coverage Status](https://coveralls.io/repos/github/OmegaDoom/allocator-aware-vector/badge.svg?branch=master)](https://coveralls.io/github/OmegaDoom/allocator-aware-vector?branch=master)
