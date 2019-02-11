@@ -218,9 +218,6 @@ namespace omega
 
         void pop_back() noexcept
         {
-            if (!m_size)
-                return;
-
             alloc_traits::destroy(m_allocator, &m_data[m_size - 1]);
             --m_size;
         }
