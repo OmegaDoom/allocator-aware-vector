@@ -368,12 +368,12 @@ namespace omega
 
         const_iterator begin() const noexcept
         {
-            return m_size ? iterator(m_data) : iterator(nullptr);
+            return m_size ? const_iterator(m_data) : const_iterator(nullptr);
         }
 
         const_iterator end() const noexcept
         {
-            return m_size ? iterator(m_data + m_size) : iterator(nullptr);
+            return m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
         }
 
         const_iterator cbegin() const noexcept
@@ -389,37 +389,37 @@ namespace omega
         reverse_iterator rbegin() noexcept
         {
             auto iter = m_size ? iterator(m_data + m_size) : iterator(nullptr);
-            return std::reverse_iterator<iterator>(iter); 
+            return reverse_iterator(iter);
         } 
 
         reverse_iterator rend() noexcept
         {
             auto iter = m_size ? iterator(m_data) : iterator(nullptr);
-            return std::reverse_iterator<iterator>(iter);
+            return reverse_iterator(iter);
         }
 
         const_reverse_iterator rbegin() const noexcept
         {
-            auto iter = m_size ? iterator(m_data + m_size) : iterator(nullptr);
-            return std::reverse_iterator<iterator>(iter);
+            auto iter = m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
+            return const_reverse_iterator(iter);
         }
 
         const_reverse_iterator rend() const noexcept
         {
-            auto iter = m_size ? iterator(m_data) : iterator(nullptr);
-            return std::reverse_iterator<iterator>(iter); 
+            auto iter = m_size ? const_iterator(m_data) : const_iterator(nullptr);
+            return const_reverse_iterator(iter);
         } 
 
         const_reverse_iterator rcbegin() const noexcept
         {
             auto iter = m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
-            return std::reverse_iterator<const_iterator>(iter); 
+            return const_reverse_iterator(iter);
         } 
 
         const_reverse_iterator rcend() const noexcept
         {
             auto iter = m_size ? const_iterator(m_data) : const_iterator(nullptr);
-            return std::reverse_iterator<const_iterator>(iter); 
+            return const_reverse_iterator(iter);
         } 
 
         size_type size() const noexcept
