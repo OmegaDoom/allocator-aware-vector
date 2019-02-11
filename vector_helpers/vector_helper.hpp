@@ -24,7 +24,7 @@ namespace omega
         using pointer = typename alloc_traits::pointer;
         using const_pointer = typename alloc_traits::const_pointer;
 
-        vector_helper(allocator_type& alloc)
+        explicit vector_helper(allocator_type& alloc)
             : m_data{ nullptr }
             , m_size{ 0 }
             , m_capacity{ 0 }
