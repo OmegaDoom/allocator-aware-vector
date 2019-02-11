@@ -553,4 +553,11 @@ TEST_CASE( "iterators", "[vector]" ) {
 
         REQUIRE( (*(v.rcbegin() + 1) == 10 && *(v.rcend() - 2) == 11) );
     }
+    SECTION( "swap iterator" ) {
+        auto it0 = v.begin();
+        auto it1 = v.end() - 1;
+        it0.swap(it1);
+
+        REQUIRE( (*it0 == 5 && *it1 == 1) );
+    }
 }
