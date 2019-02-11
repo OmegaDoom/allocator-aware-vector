@@ -27,19 +27,19 @@ namespace omega
         using const_reverse_iterator = std::reverse_iterator<const_iterator>; 
         using reverse_iterator = std::reverse_iterator<iterator>; 
 
-        explicit vector(const allocator_type& alloc = allocator_type())
-            : m_data(nullptr)
-            , m_size(0)
-            , m_capacity(0)
-            , m_allocator(alloc)
+        explicit vector(const allocator_type& alloc = allocator_type{})
+            : m_data{ nullptr }
+            , m_size{ 0 }
+            , m_capacity{ 0 }
+            , m_allocator{ alloc }
         {
         }
 
         template<typename It>
-        vector(It first, It last, const allocator_type& alloc = allocator_type())
-            : vector(alloc)
+        vector(It first, It last, const allocator_type& alloc = allocator_type{})
+            : vector{ alloc }
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(last - first);
             for (auto it = first; it != last; ++it)
             {
@@ -51,7 +51,7 @@ namespace omega
         template<typename It>
         void assign(It first, It last)
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(last - first);
             for (auto it = first; it != last; ++it)
             {
@@ -60,10 +60,10 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        vector(std::initializer_list<T> list, const allocator_type& alloc = allocator_type())
-            : vector(alloc) 
+        vector(std::initializer_list<T> list, const allocator_type& alloc = allocator_type{})
+            : vector{ alloc }
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(list.size());
             for (auto& item : list)
             {
@@ -74,7 +74,7 @@ namespace omega
 
         void assign(std::initializer_list<T> list)
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(list.size());
             for (auto& item : list)
             {
@@ -84,12 +84,12 @@ namespace omega
         }
 
         vector(const vector<T, allocator_type>& rhs)
-            : m_data(nullptr)
-            , m_size(0)
-            , m_capacity(0)
-            , m_allocator(alloc_traits::select_on_container_copy_construction(rhs.m_allocator))
+            : m_data{ nullptr }
+            , m_size{ 0 }
+            , m_capacity{ 0 }
+            , m_allocator{ alloc_traits::select_on_container_copy_construction(rhs.m_allocator) }
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(rhs.m_size);
             for (size_type i = 0; i < rhs.m_size; i++)
             {
@@ -99,12 +99,12 @@ namespace omega
         }
 
         vector(const vector<T, allocator_type>& rhs, const allocator_type& alloc)
-            : m_data(nullptr)
-            , m_size(0)
-            , m_capacity(0)
-            , m_allocator(alloc)
+            : m_data{ nullptr }
+            , m_size{ 0 }
+            , m_capacity{ 0 }
+            , m_allocator{ alloc }
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(rhs.m_size);
             for (size_type i = 0; i < rhs.m_size; i++)
             {
@@ -114,10 +114,10 @@ namespace omega
         }
 
         vector(vector<T, allocator_type>&& rhs)
-            : m_allocator(std::move(rhs.m_allocator))
-            , m_size(rhs.m_size)
-            , m_capacity(rhs.m_capacity)
-            , m_data(rhs.m_data)
+            : m_allocator{ std::move(rhs.m_allocator) }
+            , m_size{ rhs.m_size }
+            , m_capacity{ rhs.m_capacity }
+            , m_data{ rhs.m_data }
         {
             rhs.m_size = 0;
             rhs.m_capacity = 0;
@@ -125,10 +125,10 @@ namespace omega
         }
 
         vector(vector<T, allocator_type>&& rhs, const allocator_type& alloc)
-            : m_allocator(alloc)
-            , m_size(rhs.m_size)
-            , m_capacity(rhs.m_capacity)
-            , m_data(rhs.m_data)
+            : m_allocator{ alloc }
+            , m_size{ rhs.m_size }
+            , m_capacity{ rhs.m_capacity }
+            , m_data{ rhs.m_data }
         {
             rhs.m_size = 0;
             rhs.m_capacity = 0;
@@ -230,7 +230,7 @@ namespace omega
             if (new_capacity <= m_capacity)
                 return;
             
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
 
             for (size_type i = 0; i < m_size; i++)
@@ -273,7 +273,7 @@ namespace omega
 
         void assign(size_type count, const_reference value)
         {
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(count);
 
             for (size_type i = 0; i < count; i++)
@@ -289,7 +289,7 @@ namespace omega
             if (m_capacity == m_size)
                 return;
 
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(m_size);
 
             for (size_type i = 0; i < m_size; i++)
@@ -358,68 +358,68 @@ namespace omega
 
         iterator begin() noexcept
         {
-            return m_size ? iterator(m_data) : iterator(nullptr);
+            return m_size ? iterator{ m_data } : iterator{ nullptr };
         } 
 
         iterator end() noexcept
         {
-            return m_size ? iterator(m_data + m_size) : iterator(nullptr);
+            return m_size ? iterator{ m_data + m_size } : iterator{ nullptr };
         } 
 
         const_iterator begin() const noexcept
         {
-            return m_size ? const_iterator(m_data) : const_iterator(nullptr);
+            return m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
         }
 
         const_iterator end() const noexcept
         {
-            return m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
+            return m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
         }
 
         const_iterator cbegin() const noexcept
         {
-            return m_size ? const_iterator(m_data) : const_iterator(nullptr);
+            return m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
         }
 
         const_iterator cend() const noexcept
         {
-            return m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
+            return m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
         }
 
         reverse_iterator rbegin() noexcept
         {
-            auto iter = m_size ? iterator(m_data + m_size) : iterator(nullptr);
-            return reverse_iterator(iter);
+            auto iter = m_size ? iterator{ m_data + m_size } : iterator{ nullptr };
+            return reverse_iterator{ iter };
         } 
 
         reverse_iterator rend() noexcept
         {
-            auto iter = m_size ? iterator(m_data) : iterator(nullptr);
-            return reverse_iterator(iter);
+            auto iter = m_size ? iterator{ m_data } : iterator{ nullptr };
+            return reverse_iterator{ iter };
         }
 
         const_reverse_iterator rbegin() const noexcept
         {
-            auto iter = m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
-            return const_reverse_iterator(iter);
+            auto iter = m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
+            return const_reverse_iterator{ iter };
         }
 
         const_reverse_iterator rend() const noexcept
         {
-            auto iter = m_size ? const_iterator(m_data) : const_iterator(nullptr);
-            return const_reverse_iterator(iter);
+            auto iter = m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
+            return const_reverse_iterator{ iter };
         } 
 
         const_reverse_iterator rcbegin() const noexcept
         {
-            auto iter = m_size ? const_iterator(m_data + m_size) : const_iterator(nullptr);
-            return const_reverse_iterator(iter);
+            auto iter = m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
+            return const_reverse_iterator{ iter };
         } 
 
         const_reverse_iterator rcend() const noexcept
         {
-            auto iter = m_size ? const_iterator(m_data) : const_iterator(nullptr);
-            return const_reverse_iterator(iter);
+            auto iter = m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
+            return const_reverse_iterator{ iter };
         } 
 
         size_type size() const noexcept
@@ -459,7 +459,7 @@ namespace omega
                 return m_size ? iterator{ m_data + m_size } : iterator{ nullptr };
             }
 
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(m_capacity);
 
             iterator result(nullptr);
@@ -532,7 +532,7 @@ namespace omega
             // Do move assignment when it might not be possible to move source
             // object's memory, resulting in a linear-time operation.
 
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(rhs.m_size);
             for (size_type i = 0; i < rhs.m_size; i++)
             {
@@ -567,7 +567,7 @@ namespace omega
         {
             if (m_size == m_capacity)
             {
-                vector_helper<T, allocator_type> temp(m_allocator);
+                vector_helper<T, allocator_type> temp{ m_allocator };
                 temp.alloc(m_capacity * 2 + 1);
                 for (size_type i = 0; i < m_size; i++)
                 {
@@ -586,7 +586,7 @@ namespace omega
         {
             const auto new_size = m_size + count;
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
             auto copy_index = pos.getPointer() - &m_data[0];
 
@@ -616,7 +616,7 @@ namespace omega
         {
             const auto new_size = m_size + last - first;
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
             auto copy_index = pos.getPointer() - &m_data[0];
 
@@ -646,7 +646,7 @@ namespace omega
         void resize_to_bigger_size(size_type count, const_reference value)
         {
             size_type new_capacity = count > m_capacity ? count : m_capacity;
-            vector_helper<T, allocator_type> temp(m_allocator);
+            vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
 
             for (size_type i = 0; i < m_size; i++)

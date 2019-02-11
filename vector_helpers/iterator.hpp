@@ -22,12 +22,12 @@ namespace omega
         using reference = ValueReferenceType;
 
         explicit base_iterator(ValuePointerType pointer)
-            : m_pointer(pointer)
+            : m_pointer{ pointer }
         {
         }
 
         base_iterator(const base_iterator<T, false>& rhs)
-            : m_pointer(rhs.m_pointer)
+            : m_pointer{ rhs.m_pointer }
         {
         }
 
@@ -79,7 +79,7 @@ namespace omega
 
         base_iterator operator -- (int) noexcept
         {
-            auto old(*this);
+            auto old{ *this };
             --(*this);
             return old;
         }
@@ -92,7 +92,7 @@ namespace omega
 
         base_iterator operator ++ (int) noexcept
         {
-            auto old(*this);
+            auto old{ *this };
             ++(*this);
             return old;
         }
@@ -128,17 +128,17 @@ namespace omega
 
         friend base_iterator operator + (const base_iterator& iter, difference_type n) noexcept
         {
-            return base_iterator(iter.m_pointer + n);
+            return base_iterator{ iter.m_pointer + n };
         }
 
         friend base_iterator operator + (difference_type n, const base_iterator& iter) noexcept
         {
-            return base_iterator(iter.m_pointer + n);
+            return base_iterator{ iter.m_pointer + n };
         }
 
         friend base_iterator operator - (const base_iterator& iter, difference_type n) noexcept
         {
-            return base_iterator(iter.m_pointer - n);
+            return base_iterator{ iter.m_pointer - n };
         }
 
         ValuePointerType m_pointer;
