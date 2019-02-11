@@ -467,9 +467,9 @@ namespace omega
             {
                 if ((&m_data[i] < first.getPointer()) || (&m_data[i] >= last.getPointer())) 
                 {
-                    auto iter = temp.construct(std::move_if_noexcept<T>(m_data[i]));
+                    auto pointer = temp.construct(std::move_if_noexcept<T>(m_data[i]));
                     if (!result.getPointer() && (&m_data[i] == last.getPointer()))
-                        result = iter; 
+                        result = iterator{ pointer };
                 }
             }
 

@@ -36,7 +36,7 @@ namespace omega
         using pointer = ValuePointerType;
         using reference = ValueReferenceType;
 
-        base_iterator(ValuePointerType pointer)
+        explicit base_iterator(ValuePointerType pointer)
             : m_pointer(pointer)
         {
         }
