@@ -410,6 +410,13 @@ SCENARIO( "delete items", "[vector]" ) {
                 REQUIRE( v.back() == 12 );
             }
         }
+        WHEN( "delete item(stepo count is first)" ) {
+            v.erase(1 + v.cbegin());
+
+            THEN( "the second item is 12") {
+                REQUIRE( v.back() == 12 );
+            }
+        }
         WHEN( "delete items from end" ) {
             v.erase(v.cbegin() + 1, v.cend());
 
