@@ -485,6 +485,16 @@ TEST_CASE( "iterators", "[vector]" ) {
         REQUIRE( (*(v.end() - 1) == 5 && *(v.end() - 2) == 4) );
         REQUIRE( (*it1 == 3 && *it2 == 3) );
     }
+    SECTION( "operators +=, -=" ) {
+        auto it1 = v.begin();
+        auto it2 = v.end() - 1;
+        it1 += 2;
+        it2 -= 2;
+
+        REQUIRE( (*v.begin() == 1 && *(v.begin() + 1) == 2) );
+        REQUIRE( (*(v.end() - 1) == 5 && *(v.end() - 2) == 4) );
+        REQUIRE( (*it1 == 3 && *it2 == 3) );
+    }
     SECTION( "const begin, end" ) {
         const auto& const_v = v;
         auto it1 = const_v.begin();
