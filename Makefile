@@ -1,7 +1,7 @@
 # -*- Makefile -*-
 
 CXX := g++
-CXXFLAGS := -std=c++11 --coverage
+CXXFLAGS := -Wall -Wextra -std=c++11 --coverage
 LIBS := --coverage
 
 all: main tests
