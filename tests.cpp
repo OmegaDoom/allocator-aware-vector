@@ -570,6 +570,12 @@ TEST_CASE( "iterators", "[vector]" ) {
 
         REQUIRE( (*it0 == 5 && *it1 == 1) );
     }
+    SECTION( "iterators difference" ) {
+        auto it0 = v.begin();
+        auto it1 = v.end() - 1;
+
+        REQUIRE( ((it1 - it0 == 4) && (it0 - it1 == -4)) );
+    }
     SECTION( "compare iterators" ) {
         auto it0 = v.begin() + 2;
         auto it1 = v.end() - 3;
