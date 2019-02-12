@@ -28,4 +28,5 @@ for(auto value : vec)
 2. No non-member functions
 3. No methods `max_size` and `get_allocator`
 
+[![Build Status](https://travis-ci.org/OmegaDoom/allocator-aware-vector.svg?branch=master)](https://travis-ci.org/OmegaDoom/allocator-aware-vector)
 [![Coverage Status](https://coveralls.io/repos/github/OmegaDoom/allocator-aware-vector/badge.svg?branch=master)](https://coveralls.io/github/OmegaDoom/allocator-aware-vector?branch=master)
