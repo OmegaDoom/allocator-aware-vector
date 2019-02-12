@@ -216,7 +216,7 @@ namespace omega
             return insert_values_internal(pos, 1, std::forward<Args>(args)...);
         }
 
-        void pop_back() noexcept
+        void pop_back()
         {
             alloc_traits::destroy(m_allocator, &m_data[m_size - 1]);
             --m_size;
