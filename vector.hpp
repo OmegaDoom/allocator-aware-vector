@@ -114,10 +114,10 @@ namespace omega
         }
 
         vector(vector<T, allocator_type>&& rhs)
-            : m_allocator{ std::move(rhs.m_allocator) }
+            : m_data{ rhs.m_data }
             , m_size{ rhs.m_size }
             , m_capacity{ rhs.m_capacity }
-            , m_data{ rhs.m_data }
+            , m_allocator{ std::move(rhs.m_allocator) }
         {
             rhs.m_size = 0;
             rhs.m_capacity = 0;
@@ -125,10 +125,10 @@ namespace omega
         }
 
         vector(vector<T, allocator_type>&& rhs, const allocator_type& alloc)
-            : m_allocator{ alloc }
+            : m_data{ rhs.m_data }
             , m_size{ rhs.m_size }
             , m_capacity{ rhs.m_capacity }
-            , m_data{ rhs.m_data }
+            , m_allocator{ alloc }
         {
             rhs.m_size = 0;
             rhs.m_capacity = 0;
@@ -667,10 +667,10 @@ namespace omega
         }
 
         static constexpr size_type ITEM_SIZE = sizeof(T);
-        allocator_type m_allocator;
         pointer m_data;
         size_type m_size;
         size_type m_capacity;
+        allocator_type m_allocator;
     };
 }
 

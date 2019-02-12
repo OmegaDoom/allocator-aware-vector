@@ -65,10 +65,10 @@ namespace omega
         }
 
         static constexpr size_type ITEM_SIZE = sizeof(T);
-        allocator_type& m_allocator;
         pointer m_data;
         size_type m_size;
         size_type m_capacity;
+        allocator_type& m_allocator;
     };
 }
 
