@@ -446,21 +446,42 @@ SCENARIO( "delete items", "[vector]" ) {
     }
 }
 
-TEST_CASE( "at method", "[vector]" ) {
+TEST_CASE( "access functions", "[vector]" ) {
     omega::vector<int> v;
     v.push_back(10);
     v.push_back(11);
     v.push_back(12);
-    SECTION( "index out of range" ) {
+    SECTION( "operator []" ) {
+        REQUIRE( v[2] == 12 );
+    }
+    SECTION( "operator [] const" ) {
+        const auto& v_const = v;
+        REQUIRE( v_const[2] == 12 );
+    }
+    SECTION( "front and back" ) {
+        REQUIRE( (v.front() == 10 && v.back() == 12) );
+    }
+    SECTION( "front const and back const" ) {
+        const auto& v_const = v;
+        REQUIRE( (v_const.front() == 10 && v_const.back() == 12) );
+    }
+    SECTION( "data" ) {
+        REQUIRE( *v.data() == 10 );
+    }
+    SECTION( "data const" ) {
+        const auto& v_const = v;
+        REQUIRE( *v_const.data() == 10 );
+    }
+    SECTION( "at - index out of range" ) {
         REQUIRE( v.at(2) == 12 );
         REQUIRE_THROWS_AS(v.at(10) == 0, std::out_of_range);
         REQUIRE_THROWS_AS(v.at(-10) == 0, std::out_of_range);
     }
-    SECTION( "index out of range for const object" ) {
-        const omega::vector<int>& const_v = v;
-        REQUIRE( const_v.at(2) == 12 );
-        REQUIRE_THROWS_AS(const_v.at(10) == 0, std::out_of_range);
-        REQUIRE_THROWS_AS(const_v.at(-10) == 0, std::out_of_range);
+    SECTION( "at const - index out of range" ) {
+        const auto& v_const = v;
+        REQUIRE( v_const.at(2) == 12 );
+        REQUIRE_THROWS_AS(v_const.at(10) == 0, std::out_of_range);
+        REQUIRE_THROWS_AS(v_const.at(-10) == 0, std::out_of_range);
     }
 }
 
