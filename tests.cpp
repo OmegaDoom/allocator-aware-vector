@@ -376,6 +376,14 @@ SCENARIO( "Shrink to fit", "[vector]" ) {
                 REQUIRE( v.capacity() == 4 );
             }
         }
+        WHEN( "calling shrink_to_fit twice" ) {
+            v.shrink_to_fit();
+            v.shrink_to_fit();
+
+            THEN( "the cpacity is 3") {
+                REQUIRE( v.capacity() == 3 );
+            }
+        }
         WHEN( "add another items" ) {
             v.push_back( 13 );
             v.push_back( 14 );
