@@ -41,6 +41,10 @@ std::ostream& operator << (std::ostream& os, const Test& other)
     return os;
 }
 
+template class omega::vector<int>;
+template class omega::vector<std::string>;
+template class omega::vector<Test>;
+
 TEMPLATE_TEST_CASE( "vectors can be sized and resized", "[vector][template]", int, std::string, Test, (std::tuple<int,float>) )
 {
   omega::vector<TestType> v;
