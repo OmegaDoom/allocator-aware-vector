@@ -41,8 +41,12 @@ class Test2
 {
 public:
     Test2(int a, int b)
+        : m_a(a), m_b(b)
     {
     }
+private:
+    int m_a;
+    int m_b;
 };
 
 std::ostream& operator << (std::ostream& os, const Test& other)
@@ -51,7 +55,7 @@ std::ostream& operator << (std::ostream& os, const Test& other)
     return os;
 }
 
-int main(int argc, char* argv[])
+int main(int, char* [])
 {
     omega::vector<std::string, allocator<std::string>> v5;
     v5.push_back("12345");
@@ -102,7 +106,6 @@ int main(int argc, char* argv[])
     omega::vector<Test> vec1(std::move(vec));
     omega::vector<Test> vec2;
     vec2 = std::move(vec1);
-    auto iter = vec2.begin();
 
     std::cout << "capacity = " << vec2.capacity() << std::endl;
 
@@ -142,7 +145,7 @@ int main(int argc, char* argv[])
 
     try
     {
-        auto& item = vec4.at(10);
+        vec4.at(10);
     }
     catch(const std::out_of_range& exception)
     {

@@ -585,9 +585,9 @@ namespace omega
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
-            auto copy_index = pos.getPointer() - &m_data[0];
+            const auto copy_index = pos.getPointer() - &m_data[0];
 
-            for (size_type i = 0; i < copy_index; i++)
+            for (std::ptrdiff_t i = 0; i < copy_index; i++)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -611,13 +611,13 @@ namespace omega
         template <typename It, typename InputIt>
         iterator insert_internal(It pos, InputIt first, InputIt last)
         {
-            const auto new_size = m_size + last - first;
+            const auto new_size = static_cast<size_t>(m_size + last - first);
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
-            auto copy_index = pos.getPointer() - &m_data[0];
+            const auto copy_index = pos.getPointer() - &m_data[0];
 
-            for (size_type i = 0; i < copy_index; i++)
+            for (std::ptrdiff_t i = 0; i < copy_index; i++)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -625,7 +625,7 @@ namespace omega
             auto result = iterator{ temp.construct(*first) };
             auto iter = first + 1;
 
-            for (size_type i = 0; i < last - first - 1; i++)
+            for (std::ptrdiff_t i = 0; i < last - first - 1; i++)
             {
                 temp.construct(*iter);
                 ++iter;
