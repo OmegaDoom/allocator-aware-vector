@@ -567,4 +567,12 @@ TEST_CASE( "iterators", "[vector]" ) {
         REQUIRE( (it0 == it1 && it0 != v.begin()) );
         REQUIRE( (v.begin() < v.end() && it0 > v.begin()) );
     }
+    SECTION( "compare const and not const iterators" ) {
+        auto it0 = v.begin() + 2;
+        auto it1 = v.end() - 3;
+        auto it2 = static_cast<omega::vector<int>::const_iterator>(it1);
+
+        REQUIRE( (it0 == it2 && it0 != v.cbegin()) );
+        REQUIRE( (v.begin() < v.cend() && it0 > v.cbegin()) );
+    }
 }
