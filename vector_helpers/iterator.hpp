@@ -140,7 +140,7 @@ namespace omega
 
         friend difference_type operator - (const base_iterator& lhs, const base_iterator& rhs) noexcept
         {
-            return lhs.m_pointer - rhs.m_pointer;
+            return lhs.m_pointer > rhs.m_pointer ? lhs.m_pointer - rhs.m_pointer : -(rhs.m_pointer - lhs.m_pointer);
         }
 
         ValuePointerType m_pointer;
