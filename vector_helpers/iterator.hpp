@@ -31,36 +31,6 @@ namespace omega
         {
         }
 
-        bool operator == (const base_iterator& rhs) const noexcept
-        {
-            return m_pointer == rhs.m_pointer;
-        }
-
-        bool operator != (const base_iterator& rhs) const noexcept
-        {
-            return !(*this == rhs);
-        }
-
-        bool operator < (const base_iterator& rhs) const noexcept
-        {
-            return m_pointer < rhs.m_pointer;
-        }
-
-        bool operator <= (const base_iterator& rhs) const noexcept
-        {
-            return m_pointer <= rhs.m_pointer;
-        }
-
-        bool operator > (const base_iterator& rhs) const noexcept
-        {
-            return m_pointer > rhs.m_pointer;
-        }
-
-        bool operator >= (const base_iterator& rhs) const noexcept
-        {
-            return m_pointer >= rhs.m_pointer;
-        }
-
         ValueReferenceType operator * ()
         {
             return *m_pointer;
@@ -109,11 +79,6 @@ namespace omega
             return *this;
         }
 
-        difference_type operator - (const base_iterator& rhs) const noexcept
-        {
-            return m_pointer - rhs.m_pointer;
-        }
-
         void swap(base_iterator& rhs) noexcept
         {
             std::swap(m_pointer, rhs.m_pointer);
@@ -125,6 +90,38 @@ namespace omega
         }
 
     private:
+
+        friend base_iterator<T>;
+
+        friend bool operator == (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return lhs.m_pointer == rhs.m_pointer;
+        }
+
+        friend bool operator != (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        friend bool operator < (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return lhs.m_pointer < rhs.m_pointer;
+        }
+
+        friend bool operator <= (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return lhs.m_pointer <= rhs.m_pointer;
+        }
+
+        friend bool operator > (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return lhs.m_pointer > rhs.m_pointer;
+        }
+
+        friend bool operator >= (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return lhs.m_pointer >= rhs.m_pointer;
+        }
 
         friend base_iterator operator + (const base_iterator& iter, difference_type n) noexcept
         {
@@ -139,6 +136,11 @@ namespace omega
         friend base_iterator operator - (const base_iterator& iter, difference_type n) noexcept
         {
             return base_iterator{ iter.m_pointer - n };
+        }
+
+        friend difference_type operator - (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        {
+            return lhs.m_pointer - rhs.m_pointer;
         }
 
         ValuePointerType m_pointer;
