@@ -506,6 +506,13 @@ TEST_CASE( "swap method", "[vector]" ) {
 
 TEST_CASE( "iterators", "[vector]" ) {
     omega::vector<int> v { 1, 2, 3, 4, 5 };
+    SECTION( "[index]" ) {
+        auto it0 = v.begin();
+        auto it1 = v.cbegin();
+        it0[2] = 100;
+
+        REQUIRE ( (it1[0] == 1 && it1[1] == 2 && it1[2] == 100 && it1[3] == 4 && it1[4] == 5) );
+    }
     SECTION( "begin, end" ) {
         auto it1 = v.begin();
         auto it2 = v.end() - 1;
