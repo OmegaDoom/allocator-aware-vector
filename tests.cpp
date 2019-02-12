@@ -576,6 +576,7 @@ TEST_CASE( "iterators", "[vector]" ) {
 
         REQUIRE( (it0 == it1 && it0 != v.begin()) );
         REQUIRE( (v.begin() < v.end() && it0 > v.begin()) );
+        REQUIRE( (v.begin() <= v.begin() && v.begin() <= v.end() && it0 >= it1 && it0 <= it1) );
     }
     SECTION( "compare const and not const iterators" ) {
         auto it0 = v.begin() + 2;
@@ -584,5 +585,6 @@ TEST_CASE( "iterators", "[vector]" ) {
 
         REQUIRE( (it0 == it2 && it0 != v.cbegin()) );
         REQUIRE( (v.begin() < v.cend() && it0 > v.cbegin()) );
+        REQUIRE( (v.cbegin() <= v.begin() && v.begin() <= v.cend() && it0 >= it2 && it0 <= it2) );
     }
 }
