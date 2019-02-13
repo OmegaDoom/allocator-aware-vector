@@ -157,9 +157,13 @@ namespace omega
                                       || m_allocator == rhs.m_allocator; 
  
             if (move_storage)
+            {
                 move_assign(std::move(rhs)); 
+            }
             else
+            {
                 copy_assign(rhs);
+            }
 
             return *this;
         }
@@ -225,7 +229,9 @@ namespace omega
         void reserve(size_type new_capacity)
         {
             if (new_capacity <= m_capacity)
+            {
                 return;
+            }
             
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(new_capacity);
@@ -284,7 +290,9 @@ namespace omega
         void shrink_to_fit()
         {
             if (m_capacity == m_size)
+            {
                 return;
+            }
 
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.alloc(m_size);
@@ -310,7 +318,9 @@ namespace omega
         reference at(size_type index)
         {
             if (index >= m_size)
+            {
                 throw std::out_of_range("index out of range");
+            }
 
             return m_data[index];
         }
@@ -318,7 +328,9 @@ namespace omega
         const_reference at(size_type index) const
         {
             if (index >= m_size)
+            {
                 throw std::out_of_range("index out of range");
+            }
 
             return m_data[index];
         }
@@ -482,7 +494,10 @@ namespace omega
 
             using std::swap;
             if (swap_storage)
+            {
                 swap(m_allocator, rhs.m_allocator);
+            }
+
             std::swap(m_data, rhs.m_data);
             std::swap(m_size, rhs.m_size);
             std::swap(m_capacity, rhs.m_capacity);
@@ -513,7 +528,9 @@ namespace omega
             clear_capacity();
 
             if (m_allocator != rhs.m_allocator)
+            {
                 m_allocator = std::move(rhs.m_allocator); 
+            }
 
             m_size = rhs.m_size;
             m_capacity = rhs.m_capacity;
