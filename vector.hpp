@@ -397,37 +397,37 @@ namespace omega
 
         reverse_iterator rbegin() noexcept
         {
-            auto iter = m_size ? iterator{ m_data + m_size } : iterator{ nullptr };
+            const auto iter = m_size ? iterator{ m_data + m_size } : iterator{ nullptr };
             return reverse_iterator{ iter };
         } 
 
         reverse_iterator rend() noexcept
         {
-            auto iter = m_size ? iterator{ m_data } : iterator{ nullptr };
+            const auto iter = m_size ? iterator{ m_data } : iterator{ nullptr };
             return reverse_iterator{ iter };
         }
 
         const_reverse_iterator rbegin() const noexcept
         {
-            auto iter = m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
+            const auto iter = m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
             return const_reverse_iterator{ iter };
         }
 
         const_reverse_iterator rend() const noexcept
         {
-            auto iter = m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
+            const auto iter = m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
             return const_reverse_iterator{ iter };
         } 
 
         const_reverse_iterator rcbegin() const noexcept
         {
-            auto iter = m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
+            const auto iter = m_size ? const_iterator{ m_data + m_size } : const_iterator{ nullptr };
             return const_reverse_iterator{ iter };
         } 
 
         const_reverse_iterator rcend() const noexcept
         {
-            auto iter = m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
+            const auto iter = m_size ? const_iterator{ m_data } : const_iterator{ nullptr };
             return const_reverse_iterator{ iter };
         } 
 
@@ -476,7 +476,7 @@ namespace omega
             {
                 if ((&m_data[i] < first.getPointer()) || (&m_data[i] >= last.getPointer())) 
                 {
-                    auto pointer = temp.construct(std::move_if_noexcept<T>(m_data[i]));
+                    const auto pointer = temp.construct(std::move_if_noexcept<T>(m_data[i]));
                     if (!result.getPointer() && (&m_data[i] == last.getPointer()))
                         result = iterator{ pointer };
                 }
@@ -609,7 +609,7 @@ namespace omega
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
-            auto result = iterator{ temp.construct(std::forward<Args>(args)...) };
+            const auto result = iterator{ temp.construct(std::forward<Args>(args)...) };
 
             for (size_type i = 0; i < count - 1; i++)
             {
@@ -639,7 +639,7 @@ namespace omega
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
-            auto result = iterator{ temp.construct(*first) };
+            const auto result = iterator{ temp.construct(*first) };
             auto iter = first + 1;
 
             for (std::ptrdiff_t i = 0; i < last - first - 1; i++)
