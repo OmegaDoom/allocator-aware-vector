@@ -628,7 +628,7 @@ namespace omega
         template <typename It, typename InputIt>
         iterator insert_internal(It pos, InputIt first, InputIt last)
         {
-            const auto new_size = static_cast<size_t>(m_size + last - first);
+            const auto new_size = static_cast<size_t>(m_size + std::distance(first, last));
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(new_capacity);
@@ -641,9 +641,11 @@ namespace omega
 
             const auto result = iterator{ temp.construct(*first) };
 
-            for (std::ptrdiff_t i = 0; i < last - first - 1; i++)
+            auto iter = first;
+            ++iter;
+            for (; iter != last; ++iter)
             {
-                temp.construct(*(first + i + 1));
+                temp.construct(*iter);
             }
 
             for (size_type i = copy_index; i < m_size; i++)
