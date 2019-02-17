@@ -83,7 +83,7 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        vector(const vector<T, allocator_type>& rhs)
+        vector(const vector& rhs)
             : m_data{ nullptr }
             , m_size{ 0 }
             , m_capacity{ 0 }
@@ -98,7 +98,7 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        vector(const vector<T, allocator_type>& rhs, const allocator_type& alloc)
+        vector(const vector& rhs, const allocator_type& alloc)
             : m_data{ nullptr }
             , m_size{ 0 }
             , m_capacity{ 0 }
@@ -113,7 +113,7 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        vector(vector<T, allocator_type>&& rhs)
+        vector(vector&& rhs)
             : m_data{ rhs.m_data }
             , m_size{ rhs.m_size }
             , m_capacity{ rhs.m_capacity }
@@ -124,7 +124,7 @@ namespace omega
             rhs.m_data = nullptr;
         }
 
-        vector(vector<T, allocator_type>&& rhs, const allocator_type& alloc)
+        vector(vector&& rhs, const allocator_type& alloc)
             : m_data{ rhs.m_data }
             , m_size{ rhs.m_size }
             , m_capacity{ rhs.m_capacity }
@@ -135,7 +135,7 @@ namespace omega
             rhs.m_data = nullptr;
         }
 
-        vector<T, allocator_type>& operator = (const vector<T, allocator_type>& rhs)
+        vector& operator = (const vector& rhs)
         {
             const bool copy_storage = alloc_traits::propagate_on_container_copy_assignment::value
                                       && m_allocator != rhs.m_allocator;
@@ -151,7 +151,7 @@ namespace omega
             return *this; 
         }
 
-        vector<T, allocator_type>& operator = (vector<T, allocator_type>&& rhs)
+        vector& operator = (vector&& rhs)
         {
             const bool move_storage = alloc_traits::propagate_on_container_move_assignment::value
                                       || m_allocator == rhs.m_allocator; 
@@ -488,7 +488,7 @@ namespace omega
             return result; 
         }
 
-        void swap(vector<T, allocator_type>& rhs) noexcept
+        void swap(vector& rhs) noexcept
         {
             const bool swap_storage = alloc_traits::propagate_on_container_swap::value
                 && m_allocator != rhs.m_allocator;
@@ -520,7 +520,7 @@ namespace omega
         }
 
     private:
-        void move_assign(vector<T, allocator_type>&& rhs) noexcept
+        void move_assign(vector&& rhs) noexcept
         {
             // Constant-time move assignment when source object's memory can be
             // moved, either because the source's allocator will move too
@@ -542,7 +542,7 @@ namespace omega
             rhs.m_data = nullptr;
         }
  
-        void copy_assign(const vector<T, allocator_type>& rhs)
+        void copy_assign(const vector& rhs)
         {
             // Do move assignment when it might not be possible to move source
             // object's memory, resulting in a linear-time operation.
@@ -570,7 +570,7 @@ namespace omega
         }
 
         template <typename... Args>
-        pointer push(vector<T, allocator_type>& vec, Args&&... args)
+        pointer push(vector& vec, Args&&... args)
         {
             alloc_traits::construct(vec.m_allocator, &vec[vec.m_size], std::forward<Args>(args)...); 
             ++vec.m_size;
@@ -677,7 +677,7 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        void swap_data(vector<T, allocator_type>& first, vector_helper<T, allocator_type>& second) noexcept
+        void swap_data(vector& first, vector_helper<T, allocator_type>& second) noexcept
         {
             std::swap(first.m_data, second.m_data);
             std::swap(first.m_size, second.m_size);
