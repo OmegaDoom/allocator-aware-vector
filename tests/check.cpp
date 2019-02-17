@@ -466,13 +466,13 @@ SCENARIO( "delete items", "[vector]" ) {
             }
         }
         WHEN( "delete item" ) {
-            v.erase(v.cbegin() + 1);
+            auto iter = v.erase(v.cbegin() + 1);
 
-            THEN( "the second item is 12") {
-                REQUIRE( v.back() == 12 );
+            THEN( "the second item is 12 and retuned 12") {
+                REQUIRE( (*iter == 12 && v.back() == 12) );
             }
         }
-        WHEN( "delete item(stepo count is first)" ) {
+        WHEN( "delete item(step count is first)" ) {
             v.erase(1 + v.cbegin());
 
             THEN( "the second item is 12") {
@@ -480,10 +480,26 @@ SCENARIO( "delete items", "[vector]" ) {
             }
         }
         WHEN( "delete items from end" ) {
-            v.erase(v.cbegin() + 1, v.cend());
+            auto iter = v.erase(v.cbegin() + 1, v.cend());
 
             THEN( "only one item that equals 10") {
-                REQUIRE( (v.size() == 1 && v[0] == 10) );
+                REQUIRE( (v.size() == 1 && v[0] == 10 && iter == v.end()) );
+            }
+        }
+        WHEN( "delete with empty range" ) {
+            auto del_iter = v.cbegin() + 1;
+            auto iter = v.erase(del_iter, del_iter);
+
+            THEN( "iter is equal to del_iter") {
+                REQUIRE( (v.size() == 3 && iter == del_iter) );
+            }
+        }
+        WHEN( "delete with empty range when iter is end" ) {
+            auto del_iter = v.cend();
+            auto iter = v.erase(del_iter, del_iter);
+
+            THEN( "iter is equal to del_iter") {
+                REQUIRE( (v.size() == 3 && iter == del_iter) );
             }
         }
         WHEN( "delete items by resizing to smaller size with value" ) {
