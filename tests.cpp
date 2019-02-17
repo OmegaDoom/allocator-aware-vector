@@ -201,6 +201,14 @@ SCENARIO( "Can add items", "[vector]" ) {
                 REQUIRE( (v[0] == 8 && v[1] == 9 && v[2] == 10) );
             }
         }
+        WHEN( "insert std::list iterators" ) {
+            std::list<int> insert_l { 8, 9 };
+            v.insert(v.cbegin(), insert_l.cbegin(), insert_l.cend());
+
+            THEN( "items are 8, 9, 10" ) {
+                REQUIRE( (v[0] == 8 && v[1] == 9 && v[2] == 10) );
+            }
+        }
         WHEN( "insert iterators" ) {
             std::vector<int> insert_v { 6, 7 };
             v.insert(v.cbegin(), insert_v.cbegin(), insert_v.cend());
