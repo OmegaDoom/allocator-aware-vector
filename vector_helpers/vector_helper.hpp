@@ -30,11 +30,6 @@ namespace omega
 
         ~vector_helper()
         {
-            clear_capacity();
-        }
-
-        void clear_capacity()
-        {
             for (size_type i = 0; i < m_size; i++)
             {
                 alloc_traits::destroy(m_allocator, &m_data[i]);
