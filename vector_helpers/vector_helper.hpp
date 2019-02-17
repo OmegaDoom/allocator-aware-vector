@@ -1,12 +1,8 @@
 #ifndef OMEGA_VECTOR_HELPER_HPP
 #define OMEGA_VECTOR_HELPER_HPP
 
-#include "random_access_iterator.hpp"
 #include <utility>
-#include <iterator>
 #include <memory>
-#include <initializer_list>
-#include <stdexcept>
 
 namespace omega
 {
