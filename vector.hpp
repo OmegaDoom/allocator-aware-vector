@@ -1,7 +1,7 @@
 #ifndef OMEGA_VECTOR_HPP
 #define OMEGA_VECTOR_HPP
 
-#include "vector_helpers/iterator.hpp" 
+#include "vector_helpers/random_access_iterator.hpp"
 #include "vector_helpers/vector_helper.hpp"
 #include <memory>
 #include <initializer_list>

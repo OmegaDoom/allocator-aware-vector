@@ -1,5 +1,5 @@
-#ifndef OMEGA_VECTOR_ITERATOR_HPP
-#define OMEGA_VECTOR_ITERATOR_HPP
+#ifndef OMEGA_RANDOM_ACCESS_ITERATOR_HPP
+#define OMEGA_RANDOM_ACCESS_ITERATOR_HPP
 
 #include <utility>
 #include <iterator>
@@ -147,4 +147,4 @@ namespace omega
     };
 }
 
-#endif //OMEGA_VECTOR_ITERATOR_HPP
+#endif //OMEGA_RANDOM_ACCESS_ITERATOR_HPP
