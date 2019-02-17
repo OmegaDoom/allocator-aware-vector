@@ -211,7 +211,8 @@ namespace omega
         template<typename It>
         iterator insert(It pos, std::initializer_list<T> list) 
         {
-            return !list.size() ? iterator{ m_data + (pos - cend()) } : insert_internal(pos, std::begin(list), std::end(list));
+            return !list.size() ? iterator{ m_data + (pos - cend()) }
+                        : insert_internal(pos, std::begin(list), std::end(list));
         }
 
         template<typename It, typename... Args>
