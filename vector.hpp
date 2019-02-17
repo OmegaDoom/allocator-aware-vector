@@ -22,8 +22,8 @@ namespace omega
         using const_reference = const value_type&;
         using pointer = typename alloc_traits::pointer;
         using const_pointer = typename alloc_traits::const_pointer;
-        using const_iterator = base_iterator<T>;
-        using iterator = base_iterator<T, false>;
+        using const_iterator = random_access_iterator<T>;
+        using iterator = random_access_iterator<T, false>;
         using const_reverse_iterator = std::reverse_iterator<const_iterator>; 
         using reverse_iterator = std::reverse_iterator<iterator>; 
 

@@ -7,7 +7,7 @@
 namespace omega
 {
     template<typename T, bool is_const_iter = true>
-    class base_iterator
+    class random_access_iterator
     {
         typedef typename std::conditional<is_const_iter, const T*
                             , T*>::type ValuePointerType;
@@ -21,12 +21,12 @@ namespace omega
         using pointer = ValuePointerType;
         using reference = ValueReferenceType;
 
-        explicit base_iterator(ValuePointerType pointer)
+        explicit random_access_iterator(ValuePointerType pointer)
             : m_pointer{ pointer }
         {
         }
 
-        base_iterator(const base_iterator<T, false>& rhs)
+        random_access_iterator(const random_access_iterator<T, false>& rhs)
             : m_pointer{ rhs.m_pointer }
         {
         }
@@ -41,45 +41,45 @@ namespace omega
             return *(m_pointer + n);
         }
 
-        base_iterator &operator -- () noexcept
+        random_access_iterator &operator -- () noexcept
         {
             --m_pointer;
             return *this;
         }
 
-        base_iterator operator -- (int) noexcept
+        random_access_iterator operator -- (int) noexcept
         {
             auto old{ *this };
             --(*this);
             return old;
         }
 
-        base_iterator &operator ++ () noexcept
+        random_access_iterator &operator ++ () noexcept
         {
             ++m_pointer;
             return *this;
         }
 
-        base_iterator operator ++ (int) noexcept
+        random_access_iterator operator ++ (int) noexcept
         {
             auto old{ *this };
             ++(*this);
             return old;
         }
 
-        base_iterator& operator += (difference_type n) noexcept
+        random_access_iterator& operator += (difference_type n) noexcept
         {
             m_pointer += n;
             return *this;
         }
 
-        base_iterator& operator -= (difference_type n) noexcept
+        random_access_iterator& operator -= (difference_type n) noexcept
         {
             m_pointer -= n;
             return *this;
         }
 
-        void swap(base_iterator& rhs) noexcept
+        void swap(random_access_iterator& rhs) noexcept
         {
             std::swap(m_pointer, rhs.m_pointer);
         }
@@ -91,54 +91,54 @@ namespace omega
 
     private:
 
-        friend base_iterator<T>;
+        friend random_access_iterator<T>;
 
-        friend bool operator == (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend bool operator == (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return lhs.m_pointer == rhs.m_pointer;
         }
 
-        friend bool operator != (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend bool operator != (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return !(lhs == rhs);
         }
 
-        friend bool operator < (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend bool operator < (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return lhs.m_pointer < rhs.m_pointer;
         }
 
-        friend bool operator <= (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend bool operator <= (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return lhs.m_pointer <= rhs.m_pointer;
         }
 
-        friend bool operator > (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend bool operator > (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return lhs.m_pointer > rhs.m_pointer;
         }
 
-        friend bool operator >= (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend bool operator >= (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return lhs.m_pointer >= rhs.m_pointer;
         }
 
-        friend base_iterator operator + (const base_iterator& iter, difference_type n) noexcept
+        friend random_access_iterator operator + (const random_access_iterator& iter, difference_type n) noexcept
         {
-            return base_iterator{ iter.m_pointer + n };
+            return random_access_iterator{ iter.m_pointer + n };
         }
 
-        friend base_iterator operator + (difference_type n, const base_iterator& iter) noexcept
+        friend random_access_iterator operator + (difference_type n, const random_access_iterator& iter) noexcept
         {
-            return base_iterator{ iter.m_pointer + n };
+            return random_access_iterator{ iter.m_pointer + n };
         }
 
-        friend base_iterator operator - (const base_iterator& iter, difference_type n) noexcept
+        friend random_access_iterator operator - (const random_access_iterator& iter, difference_type n) noexcept
         {
-            return base_iterator{ iter.m_pointer - n };
+            return random_access_iterator{ iter.m_pointer - n };
         }
 
-        friend difference_type operator - (const base_iterator& lhs, const base_iterator& rhs) noexcept
+        friend difference_type operator - (const random_access_iterator& lhs, const random_access_iterator& rhs) noexcept
         {
             return lhs.m_pointer > rhs.m_pointer ? lhs.m_pointer - rhs.m_pointer : -(rhs.m_pointer - lhs.m_pointer);
         }
