@@ -10,7 +10,7 @@ language: cpp
 
 script:
     - make
-    - ./tests
+    - ./check
 
 after_success:
     - cd ${TRAVIS_BUILD_DIR}
