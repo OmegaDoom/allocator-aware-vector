@@ -123,6 +123,12 @@ TEST_CASE( "initialization", "[vector]" ) {
         REQUIRE( v.size() == 3 );
         REQUIRE( (v[0] == 4 && v[1] == 5 && v[2] == 6) );
     }
+
+    SECTION( "initialization empty vector" ) {
+        std::vector<int> init;
+        omega::vector<int> v ( init.begin(), init.end());
+        REQUIRE( v.empty() );
+    }
 }
 
 TEST_CASE( "construction", "[vector]" ) {
@@ -216,6 +222,14 @@ SCENARIO( "Can add items", "[vector]" ) {
                 REQUIRE( (v[0] == 8 && v[1] == 9 && v[2] == 10) );
             }
         }
+        WHEN( "insert empty iterators range" ) {
+            std::vector<int> insert_v;
+            v.insert(v.cbegin(), insert_v.cbegin(), insert_v.cend());
+
+            THEN( "item is 10" ) {
+                REQUIRE( (v.size() == 1 && v[0] == 10) );
+            }
+        }
         WHEN( "insert iterators" ) {
             std::vector<int> insert_v { 6, 7 };
             v.insert(v.cbegin(), insert_v.cbegin(), insert_v.cend());
@@ -294,6 +308,15 @@ SCENARIO( "assign items", "[vector]" ) {
 
             THEN( "items are equal to a, b, c" ) {
                 REQUIRE( (v.size() == 3 && v[0] == "a" && v[1] == "b" && v[2] == "c") );
+            }
+        }
+
+        WHEN( "assign empty sequence" ) {
+            std::vector<std::string> v_from;
+            v.assign(v_from.cbegin(), v_from.cend());
+
+            THEN( "no items" ) {
+                REQUIRE( (v.empty() ) );
             }
         }
 
