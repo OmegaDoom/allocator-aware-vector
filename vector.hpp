@@ -469,6 +469,11 @@ namespace omega
                 return m_size ? iterator{ m_data + m_size } : iterator{ nullptr };
             }
 
+            if (first == last)
+            {
+                return iterator{ m_data + (last - cbegin()) };
+            }
+
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(m_capacity);
 
