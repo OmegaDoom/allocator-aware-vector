@@ -1,5 +1,4 @@
 #include "vector.hpp"
-#include "allocator.hpp"
 
 #include <iostream>
 #include <string>
@@ -57,8 +56,6 @@ std::ostream& operator << (std::ostream& os, const Test& other)
 
 int main(int, char* [])
 {
-    omega::vector<std::string, allocator<std::string>> v5;
-    v5.push_back("12345");
     omega::vector<Test2> vec4;
     vec4.emplace_back(1, 2);
 

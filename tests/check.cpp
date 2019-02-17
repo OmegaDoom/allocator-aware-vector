@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 #include <list>
-#include "vector.hpp"
+#include "../vector.hpp"
 #include "allocator.hpp"
 
 class Test

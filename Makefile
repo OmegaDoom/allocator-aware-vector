@@ -4,15 +4,16 @@ CXX := g++
 CXXFLAGS := -Wall -Wextra -std=c++11 --coverage
 LIBS := --coverage
 
-all: main tests
+all: main check
 
 main: main.o
 	$(CXX) $^ $(LIBS) -o $@
 
-tests: tests.o
+check: tests/check.o
 	$(CXX) $^ $(LIBS) -o $@
 
 .PHONY: clean
 
 clean:
-	rm *.o main *.gcov *.gcno *.gcda
+	rm *.o *.gcov *.gcno *.gcda main check \
+	rm tests/*.o tests/*.gcov tests/*.gcno tests/*.gcda
