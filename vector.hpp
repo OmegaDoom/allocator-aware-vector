@@ -640,12 +640,10 @@ namespace omega
             }
 
             const auto result = iterator{ temp.construct(*first) };
-            auto iter = first + 1;
 
             for (std::ptrdiff_t i = 0; i < last - first - 1; i++)
             {
-                temp.construct(*iter);
-                ++iter;
+                temp.construct(*(first + i + 1));
             }
 
             for (size_type i = copy_index; i < m_size; i++)
