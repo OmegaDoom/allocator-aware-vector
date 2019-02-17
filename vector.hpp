@@ -40,7 +40,7 @@ namespace omega
             : vector{ alloc }
         {
             vector_helper<T, allocator_type> temp{ m_allocator };
-            temp.allocate(last - first);
+            temp.allocate(std::distance(first, last));
             for (auto it = first; it != last; ++it)
             {
                 temp.construct(*it);
@@ -52,7 +52,7 @@ namespace omega
         void assign(It first, It last)
         {
             vector_helper<T, allocator_type> temp{ m_allocator };
-            temp.allocate(last - first);
+            temp.allocate(std::distance(first, last));
             for (auto it = first; it != last; ++it)
             {
                 temp.construct(*it);
