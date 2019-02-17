@@ -50,7 +50,7 @@ namespace omega
             m_capacity = 0;
         }
 
-        void alloc(size_type capacity)
+        void allocate(size_type capacity)
         {
             m_data = alloc_traits::allocate(m_allocator, ITEM_SIZE * capacity); 
             m_capacity = capacity;
