@@ -116,6 +116,13 @@ TEST_CASE( "initialization", "[vector]" ) {
         REQUIRE( v.size() == 3 );
         REQUIRE( (v[0] == 4 && v[1] == 5 && v[2] == 6) );
     }
+
+    SECTION( "initialization from std::list iterators" ) {
+        std::list<int> l { 4, 5, 6 };
+        omega::vector<int> v ( l.begin(), l.end());
+        REQUIRE( v.size() == 3 );
+        REQUIRE( (v[0] == 4 && v[1] == 5 && v[2] == 6) );
+    }
 }
 
 TEST_CASE( "construction", "[vector]" ) {
