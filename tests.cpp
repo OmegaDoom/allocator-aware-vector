@@ -3,6 +3,8 @@
 #include <string>
 #include <tuple>
 #include <stdexcept>
+#include <vector>
+#include <list>
 #include "vector.hpp"
 #include "allocator.hpp"
 
@@ -270,6 +272,16 @@ SCENARIO( "assign items", "[vector]" ) {
                 REQUIRE( (v.size() == 3 && v[0] == "a" && v[1] == "b" && v[2] == "c") );
             }
         }
+
+//        WHEN( "assign from list iterators" ) {
+//            std::list<std::string> v_from { "a", "b", "c" };
+//            v.assign(v_from.cbegin(), v_from.cend());
+//
+//            THEN( "items are equal to a, b, c" ) {
+//                REQUIRE( (v.size() == 3 && v[0] == "a" && v[1] == "b" && v[2] == "c") );
+//            }
+//        }
+//
         WHEN( "assign values" ) {
             omega::vector<std::string> v { "a", "b", "c" };
             v.assign(2, "1");
