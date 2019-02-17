@@ -84,11 +84,6 @@ namespace omega
             std::swap(m_pointer, rhs.m_pointer);
         }
 
-        ValuePointerType getPointer() const noexcept
-        {
-            return m_pointer;
-        }
-
     private:
 
         friend random_access_iterator<T>;

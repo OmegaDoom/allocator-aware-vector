@@ -456,9 +456,9 @@ namespace omega
         template <typename It>
         iterator erase(It first, It last)
         {
-            if (last.getPointer() >= (m_data + m_size))
+            if (last >= cend())
             {
-                auto pointer = first.getPointer();
+                auto pointer = m_data + (first - cbegin());
                 const auto end = m_data + m_size;
                 while(pointer < end)
                 {
@@ -472,13 +472,14 @@ namespace omega
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(m_capacity);
 
-            iterator result(nullptr);
+            iterator result{ nullptr };
             for (size_type i = 0; i < m_size; i++)
             {
-                if ((&m_data[i] < first.getPointer()) || (&m_data[i] >= last.getPointer())) 
+                auto current = iterator { &m_data[i] };
+                if ((current < first) || (current >= last))
                 {
                     const auto pointer = temp.construct(std::move_if_noexcept<T>(m_data[i]));
-                    if (!result.getPointer() && (&m_data[i] == last.getPointer()))
+                    if (current == last)
                         result = iterator{ pointer };
                 }
             }
@@ -603,7 +604,7 @@ namespace omega
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(new_capacity);
-            const auto copy_index = pos.getPointer() - &m_data[0];
+            const auto copy_index = pos - iterator{ &m_data[0] };
 
             for (std::ptrdiff_t i = 0; i < copy_index; i++)
             {
@@ -633,7 +634,7 @@ namespace omega
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(new_capacity);
-            const auto copy_index = pos.getPointer() - &m_data[0];
+            const auto copy_index = pos - iterator{ &m_data[0] };
 
             for (std::ptrdiff_t i = 0; i < copy_index; i++)
             {
