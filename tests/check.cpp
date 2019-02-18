@@ -214,6 +214,14 @@ SCENARIO( "Can add items", "[vector]" ) {
                 REQUIRE( (v[0] == 8 && v[1] == 9 && v[2] == 10) );
             }
         }
+        WHEN( "insert empty initializer list" ) {
+            auto insertIter = v.begin();
+            auto iter = v.insert(insertIter, { });
+
+            THEN( "item is 10" ) {
+                REQUIRE( (v.size() == 1 && v[0] == 10 && insertIter == iter) );
+            }
+        }
         WHEN( "insert std::list iterators" ) {
             std::list<int> insert_l { 8, 9 };
             v.insert(v.cbegin(), insert_l.cbegin(), insert_l.cend());
