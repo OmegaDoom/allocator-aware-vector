@@ -481,7 +481,7 @@ namespace omega
             for (size_type i = 0; i < m_size; i++)
             {
                 auto current = iterator { &m_data[i] };
-                if ((current < first) || (current >= last))
+                if (current < first || current >= last)
                 {
                     const auto pointer = temp.construct(std::move_if_noexcept<T>(m_data[i]));
                     if (current == last)
