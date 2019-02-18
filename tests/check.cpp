@@ -224,10 +224,11 @@ SCENARIO( "Can add items", "[vector]" ) {
         }
         WHEN( "insert empty iterators range" ) {
             std::vector<int> insert_v;
-            v.insert(v.cbegin(), insert_v.cbegin(), insert_v.cend());
+            auto insertIter = v.cbegin() + 1;
+            auto iter = v.insert(insertIter, insert_v.cbegin(), insert_v.cend());
 
             THEN( "item is 10" ) {
-                REQUIRE( (v.size() == 1 && v[0] == 10) );
+                REQUIRE( (v.size() == 1 && v[0] == 10 && iter == insertIter) );
             }
         }
         WHEN( "insert iterators" ) {
