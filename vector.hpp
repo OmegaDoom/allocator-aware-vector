@@ -184,39 +184,35 @@ namespace omega
            push_back_internal(std::forward<Args>(args)...); 
         }
 
-        template<typename It>
-        iterator insert(It pos, const_reference value)
+        iterator insert(const_iterator pos, const_reference value)
         {
             return insert_values_internal(pos, 1, value);
         }
 
-        template<typename It>
-        iterator insert(It pos, size_type count, const_reference value)
+        iterator insert(const_iterator pos, size_type count, const_reference value)
         {
             return !count ? iterator{ m_data + (pos - cbegin()) } : insert_values_internal(pos, count, value);
         }
 
-        template<typename It>
-        iterator insert(It pos, T&& value)
+        iterator insert(const_iterator pos, T&& value)
         {
             return insert_values_internal(pos, 1, std::move(value));
         }
 
-        template<typename It, typename InputIt>
-        iterator insert(It pos, InputIt first, InputIt last)
+        template<typename InputIt>
+        iterator insert(const_iterator pos, InputIt first, InputIt last)
         {
             return first == last ? iterator{ m_data + (pos - cbegin()) } : insert_internal(pos, first, last);
         }
 
-        template<typename It>
-        iterator insert(It pos, std::initializer_list<T> list) 
+        iterator insert(const_iterator pos, std::initializer_list<T> list)
         {
             return !list.size() ? iterator{ m_data + (pos - cbegin()) }
                         : insert_internal(pos, std::begin(list), std::end(list));
         }
 
-        template<typename It, typename... Args>
-        iterator emplace(It pos, Args&&... args)
+        template<typename... Args>
+        iterator emplace(const_iterator pos, Args&&... args)
         {
             return insert_values_internal(pos, 1, std::forward<Args>(args)...);
         }
@@ -600,8 +596,8 @@ namespace omega
             push(*this, std::forward<Args>(args)...);
         }
 
-        template <typename It, typename... Args>
-        iterator insert_values_internal(It pos, size_t count, Args&&... args)
+        template <typename... Args>
+        iterator insert_values_internal(const_iterator pos, size_t count, Args&&... args)
         {
             const auto new_size = m_size + count;
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
@@ -630,8 +626,8 @@ namespace omega
             return result;
         }
 
-        template <typename It, typename InputIt>
-        iterator insert_internal(It pos, InputIt first, InputIt last)
+        template <typename InputIt>
+        iterator insert_internal(const_iterator pos, InputIt first, InputIt last)
         {
             const auto new_size = static_cast<size_t>(m_size + std::distance(first, last));
             const auto new_capacity = new_size <= m_capacity ? m_capacity : new_size;
