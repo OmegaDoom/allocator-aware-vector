@@ -91,7 +91,7 @@ namespace omega
         {
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(rhs.m_size);
-            for (size_type i = 0; i < rhs.m_size; i++)
+            for (size_type i = 0; i < rhs.m_size; ++i)
             {
                 temp.construct(rhs.m_data[i]);
             }
@@ -106,7 +106,7 @@ namespace omega
         {
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(rhs.m_size);
-            for (size_type i = 0; i < rhs.m_size; i++)
+            for (size_type i = 0; i < rhs.m_size; ++i)
             {
                 temp.construct(rhs.m_data[i]);
             }
@@ -237,7 +237,7 @@ namespace omega
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(new_capacity);
 
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -249,7 +249,7 @@ namespace omega
         {
             if (count <= m_size)
             {
-                for (size_type i = 0; i < m_size - count; i++)
+                for (size_type i = 0; i < m_size - count; ++i)
                 {
                     alloc_traits::destroy(m_allocator, &m_data[count + i]);
                 } 
@@ -264,7 +264,7 @@ namespace omega
         {
             if (count <= m_size)
             {
-                for (size_type i = 0; i < m_size - count; i++)
+                for (size_type i = 0; i < m_size - count; ++i)
                 {
                     alloc_traits::destroy(m_allocator, &m_data[count + i]);
                 } 
@@ -280,7 +280,7 @@ namespace omega
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(count);
 
-            for (size_type i = 0; i < count; i++)
+            for (size_type i = 0; i < count; ++i)
             {
                 temp.construct(value);
             }
@@ -298,7 +298,7 @@ namespace omega
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(m_size);
 
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -478,7 +478,7 @@ namespace omega
             temp.allocate(m_capacity);
 
             iterator result{ nullptr };
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 auto current = iterator { &m_data[i] };
                 if (current < first || current >= last)
@@ -512,7 +512,7 @@ namespace omega
 
         void clear()
         {
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 alloc_traits::destroy(m_allocator, &m_data[i]);
             }
@@ -555,7 +555,7 @@ namespace omega
 
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(rhs.m_size);
-            for (size_type i = 0; i < rhs.m_size; i++)
+            for (size_type i = 0; i < rhs.m_size; ++i)
             {
                 temp.construct(rhs.m_data[i]);
             }
@@ -564,7 +564,7 @@ namespace omega
 
         void clear_capacity()
         {
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 alloc_traits::destroy(m_allocator, &m_data[i]);
             }
@@ -590,7 +590,7 @@ namespace omega
             {
                 vector_helper<T, allocator_type> temp{ m_allocator };
                 temp.allocate(m_capacity * 2 + 1);
-                for (size_type i = 0; i < m_size; i++)
+                for (size_type i = 0; i < m_size; ++i)
                 {
                     temp.construct(std::move_if_noexcept<T>(m_data[i]));
                 }
@@ -611,19 +611,19 @@ namespace omega
             temp.allocate(new_capacity);
             const auto copy_index = pos - iterator{ &m_data[0] };
 
-            for (std::ptrdiff_t i = 0; i < copy_index; i++)
+            for (std::ptrdiff_t i = 0; i < copy_index; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
             const auto result = iterator{ temp.construct(std::forward<Args>(args)...) };
 
-            for (size_type i = 0; i < count - 1; i++)
+            for (size_type i = 0; i < count - 1; ++i)
             {
                 temp.construct(std::forward<Args>(args)...);
             }
 
-            for (size_type i = copy_index; i < m_size; i++)
+            for (size_type i = copy_index; i < m_size; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -641,7 +641,7 @@ namespace omega
             temp.allocate(new_capacity);
             const auto copy_index = pos - iterator{ &m_data[0] };
 
-            for (std::ptrdiff_t i = 0; i < copy_index; i++)
+            for (std::ptrdiff_t i = 0; i < copy_index; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -655,7 +655,7 @@ namespace omega
                 temp.construct(*iter);
             }
 
-            for (size_type i = copy_index; i < m_size; i++)
+            for (size_type i = copy_index; i < m_size; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
@@ -670,12 +670,12 @@ namespace omega
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(new_capacity);
 
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 temp.construct(std::move_if_noexcept<T>(m_data[i]));
             }
 
-            for (size_type i = 0; i < count - m_size; i++)
+            for (size_type i = 0; i < count - m_size; ++i)
             {
                 temp.construct(value);
             }

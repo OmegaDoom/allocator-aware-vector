@@ -30,7 +30,7 @@ namespace omega
 
         ~vector_helper()
         {
-            for (size_type i = 0; i < m_size; i++)
+            for (size_type i = 0; i < m_size; ++i)
             {
                 alloc_traits::destroy(m_allocator, &m_data[i]);
             }
