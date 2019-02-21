@@ -447,14 +447,12 @@ namespace omega
             return m_capacity;
         }
     
-        template <typename It>
-        iterator erase(It iter)
+        iterator erase(const_iterator iter)
         {
-            return erase(iter, It{ iter + 1 });
+            return erase(iter, const_iterator{ iter + 1 });
         }
 
-        template <typename It>
-        iterator erase(It first, It last)
+        iterator erase(const_iterator first, const_iterator last)
         {
             if (last >= cend())
             {
