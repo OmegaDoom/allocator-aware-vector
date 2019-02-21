@@ -113,7 +113,7 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        vector(vector&& rhs)
+        vector(vector&& rhs) noexcept
             : m_data{ rhs.m_data }
             , m_size{ rhs.m_size }
             , m_capacity{ rhs.m_capacity }
@@ -124,7 +124,7 @@ namespace omega
             rhs.m_data = nullptr;
         }
 
-        vector(vector&& rhs, const allocator_type& alloc)
+        vector(vector&& rhs, const allocator_type& alloc) noexcept
             : m_data{ rhs.m_data }
             , m_size{ rhs.m_size }
             , m_capacity{ rhs.m_capacity }
@@ -504,7 +504,7 @@ namespace omega
             std::swap(m_capacity, rhs.m_capacity);
         }
 
-        void clear()
+        void clear() noexcept
         {
             for (size_type i = 0; i < m_size; ++i)
             {
@@ -556,7 +556,7 @@ namespace omega
             swap_data(*this, temp);
         }
 
-        void clear_capacity()
+        void clear_capacity() noexcept
         {
             for (size_type i = 0; i < m_size; ++i)
             {
