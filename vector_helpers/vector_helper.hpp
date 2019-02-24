@@ -21,10 +21,7 @@ namespace omega
         using const_pointer = typename alloc_traits::const_pointer;
 
         explicit vector_helper(allocator_type& alloc)
-            : m_data{ nullptr }
-            , m_size{ 0 }
-            , m_capacity{ 0 }
-            , m_allocator{ alloc }
+            : m_allocator{ alloc }
         {
         }
 
@@ -56,9 +53,9 @@ namespace omega
         }
 
         static constexpr size_type ITEM_SIZE = sizeof(T);
-        pointer m_data;
-        size_type m_size;
-        size_type m_capacity;
+        pointer m_data = nullptr;
+        size_type m_size = 0;
+        size_type m_capacity = 0;
         allocator_type& m_allocator;
     };
 }

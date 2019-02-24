@@ -28,10 +28,7 @@ namespace omega
         using reverse_iterator = std::reverse_iterator<iterator>; 
 
         explicit vector(const allocator_type& alloc = allocator_type{})
-            : m_data{ nullptr }
-            , m_size{ 0 }
-            , m_capacity{ 0 }
-            , m_allocator{ alloc }
+            : m_allocator{ alloc }
         {
         }
 
@@ -84,10 +81,7 @@ namespace omega
         }
 
         vector(const vector& rhs)
-            : m_data{ nullptr }
-            , m_size{ 0 }
-            , m_capacity{ 0 }
-            , m_allocator{ alloc_traits::select_on_container_copy_construction(rhs.m_allocator) }
+            : m_allocator{ alloc_traits::select_on_container_copy_construction(rhs.m_allocator) }
         {
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(rhs.m_size);
@@ -99,10 +93,7 @@ namespace omega
         }
 
         vector(const vector& rhs, const allocator_type& alloc)
-            : m_data{ nullptr }
-            , m_size{ 0 }
-            , m_capacity{ 0 }
-            , m_allocator{ alloc }
+            : m_allocator{ alloc }
         {
             vector_helper<T, allocator_type> temp{ m_allocator };
             temp.allocate(rhs.m_size);
@@ -685,9 +676,9 @@ namespace omega
         }
 
         static constexpr size_type ITEM_SIZE = sizeof(T);
-        pointer m_data;
-        size_type m_size;
-        size_type m_capacity;
+        pointer m_data = nullptr;
+        size_type m_size = 0;
+        size_type m_capacity = 0;
         allocator_type m_allocator;
     };
 }
