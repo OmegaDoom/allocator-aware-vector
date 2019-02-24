@@ -43,6 +43,11 @@ std::ostream& operator << (std::ostream& os, const Test& other)
     return os;
 }
 
+omega::vector<int> foo(omega::vector<int> v)
+{
+    return v;
+}
+
 template class omega::vector<int>;
 template class omega::vector<std::string>;
 template class omega::vector<Test>;
@@ -153,6 +158,9 @@ TEST_CASE( "construction", "[vector]" ) {
         omega::vector<int> v(std::move(init_v), std::allocator<int>{});
         REQUIRE( v.size() == 3 );
         REQUIRE( (v[0] == 0 && v[1] == 1 && v[2] == 2) );
+    }
+    SECTION( "construction from {}" ) {
+        foo({}); //checks if it compiles
     }
 }
 
