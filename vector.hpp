@@ -27,9 +27,9 @@ namespace omega
         using const_reverse_iterator = std::reverse_iterator<const_iterator>; 
         using reverse_iterator = std::reverse_iterator<iterator>; 
 
-        vector() = default;
+        vector() noexcept(noexcept(allocator_type())) = default;
 
-        explicit vector(const allocator_type& alloc)
+        explicit vector(const allocator_type& alloc) noexcept
             : m_allocator{ alloc }
         {
         }
