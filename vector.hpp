@@ -27,7 +27,9 @@ namespace omega
         using const_reverse_iterator = std::reverse_iterator<const_iterator>; 
         using reverse_iterator = std::reverse_iterator<iterator>; 
 
-        explicit vector(const allocator_type& alloc = allocator_type{})
+        vector() = default;
+
+        explicit vector(const allocator_type& alloc)
             : m_allocator{ alloc }
         {
         }
@@ -679,7 +681,7 @@ namespace omega
         pointer m_data = nullptr;
         size_type m_size = 0;
         size_type m_capacity = 0;
-        allocator_type m_allocator;
+        allocator_type m_allocator = allocator_type{};
     };
 }
 
