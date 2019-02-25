@@ -130,6 +130,11 @@ namespace omega
 
         vector& operator = (const vector& rhs)
         {
+            if (this == std::addressof(rhs))
+            {
+                return *this;
+            }
+
             const bool copy_storage = alloc_traits::propagate_on_container_copy_assignment::value
                                       && m_allocator != rhs.m_allocator;
             if (copy_storage)
@@ -146,6 +151,11 @@ namespace omega
 
         vector& operator = (vector&& rhs)
         {
+            if (this == std::addressof(rhs))
+            {
+                return *this;
+            }
+
             const bool move_storage = alloc_traits::propagate_on_container_move_assignment::value
                                       || m_allocator == rhs.m_allocator; 
  
