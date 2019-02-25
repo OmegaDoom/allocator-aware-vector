@@ -399,6 +399,20 @@ SCENARIO( "assign operators", "[vector]" ) {
                 REQUIRE( (v.size() == 4 && v[0] == "a" && v[1] == "b" && v[2] == "c" && v[3] == "d") );
             }
         }
+        WHEN( "assign operator of same vector" ) {
+            v = v;
+
+            THEN( "items are equal to 1, 2, 2" ) {
+                REQUIRE( (v.size() == 3 && v[0] == "1" && v[1] == "2" && v[2] == "3") );
+            }
+        }
+        WHEN( "move assign operator of same vector" ) {
+            v = std::move(v);
+
+            THEN( "items are equal to 1, 2, 2" ) {
+                REQUIRE( (v.size() == 3 && v[0] == "1" && v[1] == "2" && v[2] == "3") );
+            }
+        }
         WHEN( "move assign operator with not equal allocator" ) {
             omega::vector<std::string, not_equal_allocator<std::string>> v_copy ({ "a", "b", "c", "d" }
                 , not_equal_allocator<std::string>{});
